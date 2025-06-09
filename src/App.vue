@@ -1,30 +1,48 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <button v-if="!account" @click="login">Azure SSO 登入</button>
+    <div v-else>
+      <p>歡迎，{{ account.username }}</p>
+      <button @click="logout">登出</button>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<script setup>
+import { ref, onMounted } from "vue";
+import { msalInstance, loginRequest } from "./auth/msal";
+
+const account = ref(null);
+
+onMounted(() => {
+  // 檢查是否為 redirect 回傳
+  msalInstance
+    .handleRedirectPromise()
+    .then((resp) => {
+      if (resp && resp.account) {
+        msalInstance.setActiveAccount(resp.account);
+        account.value = resp.account;
+      } else {
+        // 若本地已有帳號，直接讀取
+
+        const current = msalInstance.getAllAccounts()[0];
+        console.log(current);
+        if (current) {
+          msalInstance.setActiveAccount(current);
+          account.value = current;
+        }
+      }
+    })
+    .catch(console.error);
+});
+
+function login() {
+  msalInstance.loginRedirect(loginRequest);
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+function logout() {
+  msalInstance.logoutRedirect({
+    postLogoutRedirectUri: import.meta.env.VITE_AZURE_REDIRECT_URI,
+  });
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+</script>
