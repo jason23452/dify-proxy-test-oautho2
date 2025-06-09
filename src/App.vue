@@ -1,48 +1,24 @@
 <template>
   <div>
-    <button v-if="!account" @click="login">Azure SSO 登入</button>
+    <button v-if="!user.isLogged" @click="user.login">
+      Azure SSO 登入
+    </button>
     <div v-else>
-      <p>歡迎，{{ account.username }}</p>
-      <button @click="logout">登出</button>
+      <p>歡迎，{{ user.account.name }}</p>
+      <button @click="user.logout">登出</button>
     </div>
+    <router-view />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { msalInstance, loginRequest } from "./auth/msal";
+import { onMounted } from "vue";
+import { useUserStore } from "./stores/user";
 
-const account = ref(null);
+const user = useUserStore();
 
+// 初始化一次，處理 redirect 回調或讀取現有帳號
 onMounted(() => {
-  // 檢查是否為 redirect 回傳
-  msalInstance
-    .handleRedirectPromise()
-    .then((resp) => {
-      if (resp && resp.account) {
-        msalInstance.setActiveAccount(resp.account);
-        account.value = resp.account;
-      } else {
-        // 若本地已有帳號，直接讀取
-
-        const current = msalInstance.getAllAccounts()[0];
-        console.log(current);
-        if (current) {
-          msalInstance.setActiveAccount(current);
-          account.value = current;
-        }
-      }
-    })
-    .catch(console.error);
+  user.init();
 });
-
-function login() {
-  msalInstance.loginRedirect(loginRequest);
-}
-
-function logout() {
-  msalInstance.logoutRedirect({
-    postLogoutRedirectUri: import.meta.env.VITE_AZURE_REDIRECT_URI,
-  });
-}
 </script>
