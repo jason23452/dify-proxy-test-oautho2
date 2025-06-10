@@ -14,26 +14,30 @@ const client = axios.create({
   }
 })
 
-client.interceptors.request.use(async (config) => {
-  // Dify API Key
-  if (DIFY_API_KEY) {
-    config.headers.Authorization = `Bearer ${DIFY_API_KEY}`;
-  }
+client.interceptors.request.use(
+  async (config) => {
+    // 1. MSAL Bearer Token 驗證
+    const { useUserStore } = await import("../stores/user");
+    const userStore = useUserStore();
+    const ok = await userStore.ensureValidToken();
+    if (!ok) {
+      // 若無有效 token，取消請求並導向登入
+      throw new axios.Cancel("Token 已過期，正在跳轉登入");
+    }
+    const token = userStore.account?.idToken;
+    if (token) {
+      config.headers["X-Access-Token"] = `Bearer ${token}`;
+    }
 
-  // MSAL Bearer Token
-  const { useUserStore } = await import("../stores/user");
-  const userStore = useUserStore();
-  const ok = await userStore.ensureValidToken();
-  if (!ok) {
-    // 若無有效 token，request 會被取消並 redirect 至登入
-    throw new axios.Cancel("token expired, redirecting to login");
-  }
-  const token = userStore.account?.idToken;
-  if (token) {
-    config.headers["X-Access-Token"] = `Bearer ${token}`;
-  }
-  return config;
-});
+    // 2. Dify API Key
+    if (DIFY_API_KEY) {
+      config.headers.Authorization = `Bearer ${DIFY_API_KEY}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 client.interceptors.response.use(
   (res) => res,
