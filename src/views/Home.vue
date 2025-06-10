@@ -28,7 +28,8 @@
 <script setup>
 import { ref, computed, onMounted, watch } from "vue";
 import { useUserStore } from "../stores/user";
-import { Get_Mata } from "../constants/general";
+import { Get_Mata ,Get_Ifon } from "../constants/general";
+
 
 const user = useUserStore();
 const data = ref(null);
@@ -48,7 +49,7 @@ async function loadData() {
   data.value = null;
   error.value = null;
   try {
-    const response = await Get_Mata();
+    const response = await Get_Ifon();
     data.value = response.data || response;
   } catch (err) {
     console.error("Error loading data:", err);

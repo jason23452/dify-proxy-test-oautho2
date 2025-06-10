@@ -1,24 +1,29 @@
 // vite.config.js
-import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import { defineConfig, loadEnv } from "vite";
+import vue from "@vitejs/plugin-vue";
+import path from "path";
 
 export default ({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), 'VITE_')
+  const env = loadEnv(mode, process.cwd(), "VITE_");
   return defineConfig({
     plugins: [vue()],
     resolve: {
-      alias: { '@': path.resolve(__dirname, 'src') }
+      alias: { "@": path.resolve(__dirname, "src") },
     },
     server: {
       proxy: {
-        '/dify': {
+        "/dify": {
           target: env.VITE_DIFY_BASE_URL, // e.g. https://api.dify.ai/v1
           changeOrigin: true,
           // 把 /dify 開頭全都去掉，保留後面路徑
-          rewrite: path => path.replace(/^\/dify/, '')
-        }
-      }
-    }
-  })
-}
+          rewrite: (path) => path.replace(/^\/dify/, ""),
+        },
+      },
+      // allowedHosts: [
+      //   "critics-noted-movies-challenge.trycloudflare.com",
+      //   // 如果還需要允許其他自訂域名，就再加上即可
+      //   // 'another.example.com',
+      // ],
+    },
+  });
+};
