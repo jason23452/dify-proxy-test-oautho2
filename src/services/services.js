@@ -21,9 +21,9 @@ client.interceptors.request.use(
     }
 
     // 2. 加入 SSO Token
-    const idToken = userStore.account?.idToken;
-    if (idToken) {
-      config.headers["X-User-Token"] = `Bearer ${idToken}`;
+    const accessToken = userStore.accessToken;
+    if (accessToken) {
+      config.headers["X-User-Token"] = `Bearer ${accessToken}`;
     }
 
     // 3. 加入 Dify API Key
