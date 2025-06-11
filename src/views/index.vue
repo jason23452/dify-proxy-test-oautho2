@@ -1,8 +1,10 @@
 <template>
   <div class="p-4">
-    <h1 class="text-2xl font-bold mb-4">首頁 Home</h1>
-
-    <div v-if="user.isLogged">
+    <header>這是共用 Layout</header>
+    <main>
+      <router-view />
+    </main>
+    <!-- <div v-if="user.isLogged">
       <p>歡迎, {{ user.account.name }}</p>
       <p>使用者帳號: {{ user.account.username }}</p>
 
@@ -21,7 +23,7 @@
 
     <div v-else>
       <p>您尚未登入，請先點擊「Azure SSO 登入」</p>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -76,3 +78,8 @@ watch(
 <style scoped>
 /* 自訂 Home 頁面樣式 */
 </style>
+<route lang="json">
+{
+  "layout": true
+}
+</route>
