@@ -11,6 +11,7 @@ export default ({ mode }) => {
       alias: { '@': path.resolve(__dirname, 'src') }
     },
     server: {
+      port:"3000",
       proxy: {
         '/dify': {
           target: env.VITE_DIFY_BASE_URL, // e.g. https://api.dify.ai/v1
