@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../views/Login.vue";
 import { useUserStore } from "../stores/user";
 
 const routes = [
   { path: "/", name: "Home", component: Home, meta: { requiresAuth: true } },
+  { path: "/login", name: "Login", component: Login },
+
   // ... other routes
 ];
 
@@ -12,19 +15,19 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from) => {
+router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
-  if (to.meta.requiresAuth && !userStore.isLogged && !userStore.loginCalled) {
-    try {
-      await userStore.login();
-    } catch (e) {
-      if (e.errorCode !== "interaction_in_progress") {
-        console.error("loginRedirect error:", e);
-      }
+  if (to.meta.requiresAuth && !userStore.isLogged) {
+    if (to.path !== "/login") {
+      next({ name: "Login", query: { redirect: to.fullPath } });
+    } else {
+      next();
     }
-    return false;
+  } else if (to.path === "/login" && userStore.isLogged) {
+    next({ path: "/" });
+  } else {
+    next();
   }
-  return true;
 });
 
 export default router;
