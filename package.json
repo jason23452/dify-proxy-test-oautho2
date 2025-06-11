@@ -10,8 +10,13 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^4.13.0",
+    "@tailwindcss/vite": "^4.1.8",
     "axios": "^1.9.0",
     "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.3.0",
+    "tailwindcss": "^4.1.8",
+    "vite-plugin-vue-devtools": "^7.7.6",
+    "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"
   },
