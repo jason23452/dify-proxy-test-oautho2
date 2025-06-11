@@ -1,19 +1,20 @@
-// src/main.js
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate"; // ★ 加這行
 import App from "./App.vue";
 import router from "./router";
 import { initializeMsal } from "./auth/msal";
 
 async function bootstrap() {
-  // 1. 初始化 MSAL，并消化重定向回来时的处理
-  await initializeMsal(); 
-  // initializeMsal 内部应该已经调用过：
-  //   msalInstance.handleRedirectPromise()
-  // 并把 result 存到你的 store 里
+  await initializeMsal();
 
   const app = createApp(App);
-  app.use(createPinia());
+
+  // ★ Pinia + 持久化插件
+  const pinia = createPinia();
+  pinia.use(piniaPluginPersistedstate); // ★ 這行很重要
+
+  app.use(pinia);
   app.use(router);
   app.mount("#app");
 }
