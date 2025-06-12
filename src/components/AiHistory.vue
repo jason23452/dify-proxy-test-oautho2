@@ -1,9 +1,5 @@
 <template>
-  <div class="max-w-3xl mx-auto px-4 py-8">
-    <!-- 主標題 -->
-    <h1 class="text-3xl font-bold text-slate-800 mb-6">
-      生成式AI 歷史紀錄
-    </h1>
+  <div class="mx-auto">
     <div v-if="records.length === 0" class="text-center text-slate-400 text-base py-12">
       暫無歷史紀錄
     </div>
@@ -11,31 +7,19 @@
       <div
         v-for="record in records"
         :key="record.id"
-        class="bg-white rounded-2xl shadow flex flex-col md:flex-row border border-slate-200 hover:shadow-lg transition"
+        class="bg-white rounded-2xl shadow flex items-center justify-between border border-slate-200 hover:shadow-lg transition px-4 py-3"
       >
-        <div class="flex-1 p-4">
-          <!-- 問題 -->
-          <div class="mb-2">
-            <span class="text-slate-400 text-sm">你：</span>
-            <span class="text-base text-slate-800">{{ record.question }}</span>
-          </div>
-          <!-- AI 回答 -->
-          <div class="mb-2">
-            <span class="text-teal-500 text-sm">AI：</span>
-            <span class="text-base text-slate-800">{{ record.answer }}</span>
-          </div>
-          <!-- 時間 -->
-          <div class="text-sm text-slate-400">
-            {{ formatDate(record.createdAt) }}
-          </div>
-        </div>
-        <!-- 刪除按鈕 -->
+        <!-- 只顯示 title（這裡取用 question 當 title） -->
+        <span class="text-base text-slate-800 font-semibold truncate">
+          {{ record.question }}
+        </span>
+        <!-- 刪除icon -->
         <button
           @click="deleteRecord(record.id)"
-          class="m-4 md:ml-0 md:mr-6 h-10 px-5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-base font-medium shadow transition"
-          title="刪除這筆紀錄"
+          class="ml-3 text-slate-400 hover:text-red-500 transition"
+          title="刪除"
         >
-          刪除
+          <Trash2 class="w-5 h-5" />
         </button>
       </div>
     </div>
@@ -44,6 +28,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { Trash2 } from 'lucide-vue-next'
 
 const records = ref([
   {
@@ -57,20 +42,59 @@ const records = ref([
     question: '請幫我生成一段祝賀詞',
     answer: '祝你前程似錦、心想事成！',
     createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 3,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 4,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 5,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 6,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 7,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 8,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 9,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 10,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
   }
-  // 實際應該從API獲取
+  
 ])
-
-function formatDate(dateString) {
-  const d = new Date(dateString)
-  return d.toLocaleString('zh-TW', { hour12: false })
-}
 
 function deleteRecord(id) {
   records.value = records.value.filter(r => r.id !== id)
 }
 </script>
-
-<style scoped>
-/* 可根據需求微調細節 */
-</style>

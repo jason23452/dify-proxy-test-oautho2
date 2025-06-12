@@ -72,6 +72,12 @@
         </button>
       </li>
     </ul>
+    <div
+      class=""
+      v-if="!collapsed && selected === 'chat'"
+    >
+      <AiHistory />
+    </div>
 
     <!-- Footer: sm 以上絕對定位，手機則正常流動 -->
     <div
@@ -84,7 +90,7 @@
       ]"
     >
       <button
-        class="flex items-center justify-center   py-1 px-2   rounded-full bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition w-full"
+        class="flex items-center justify-center py-1 px-2 rounded-full bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition w-full"
         :class="collapsed ? 'justify-center ' : 'justify-start  flex-1'"
         @click="goProfile"
       >
@@ -104,7 +110,7 @@
         <span class="ml-3" v-if="!collapsed">個人中心</span>
       </button>
       <button
-        class="flex items-center justify-center  size-7 rounded-full shadow-lg border-2 border-slate-200 bg-white/70 backdrop-blur hover:bg-blue-100 hover:border-blue-400 transition-all"
+        class="flex items-center justify-center size-7 rounded-full shadow-lg border-2 border-slate-200 bg-white/70 backdrop-blur hover:bg-blue-100 hover:border-blue-400 transition-all"
         @click="$emit('toggle')"
         :title="collapsed ? '展開側欄' : '收合側欄'"
         tabindex="0"
@@ -128,6 +134,7 @@ import {
 } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 import { ref, defineProps } from "vue";
+import AiHistory from "@/components/AiHistory.vue";
 
 const props = defineProps({
   collapsed: Boolean,
