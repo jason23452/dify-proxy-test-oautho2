@@ -13,7 +13,7 @@
     ]"
   >
     <!-- LOGO區 -->
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center px-2">
       <div
         :class="
           collapsed
@@ -35,7 +35,7 @@
         <button
           v-if="!collapsed && selected === 'chat'"
           @click="addChat"
-          class="ml-3 flex items-center bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-800 transition px-2 py-1 rounded-xl"
+          class="ml-3 flex items-center bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-800 transition px-3 py-3 rounded-full"
           :title="'新增對話'"
         >
           <Edit class="w-5 h-5" />
@@ -45,7 +45,7 @@
       <button
         v-if="collapsed && selected === 'chat'"
         @click="addChat"
-        class="mt-3 flex items-center bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-800 transition px-2 py-1 rounded-xl"
+        class="mt-3 flex items-center bg-blue-50 text-blue-600 hover:bg-blue-100 hover:text-blue-800 transition px-3 py-3 rounded-full"
         :title="'新增對話'"
       >
         <Edit class="w-5 h-5" />
@@ -76,7 +76,7 @@
     <!-- Footer: sm 以上絕對定位，手機則正常流動 -->
     <div
       :class="[
-        'w-full z-10 flex  px-1  pt-2 border-t border-gray-200  ',
+        'w-full z-10 flex  pt-4  sm:px-4    border-t border-gray-200  ',
         collapsed
           ? 'flex-col space-y-2 items-center'
           : 'flex-row space-x-2 items-center',
@@ -84,8 +84,8 @@
       ]"
     >
       <button
-        class="flex items-center justify-center  py-1 sm:py-2  rounded-2xl bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition w-full"
-        :class="collapsed ? 'justify-center px-1' : 'justify-start px-2 flex-1'"
+        class="flex items-center justify-center   py-1 px-2   rounded-full bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition w-full"
+        :class="collapsed ? 'justify-center ' : 'justify-start  flex-1'"
         @click="goProfile"
       >
         <svg
