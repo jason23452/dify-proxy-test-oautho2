@@ -2,14 +2,14 @@
   <aside
     :class="[
       // flex基底
-      'flex flex-col space-y-6 py-6 bg-white shadow border-r border-slate-200 transition-all duration-300 z-10 overflow-y-auto relative pb-20',
+      'flex flex-col space-y-6 py-6 bg-white shadow border-r border-slate-200 transition-all duration-300 z-10 overflow-y-auto relative pb-20 ',
       // 響應式寬度
       collapsed
         ? 'w-16 min-w-[56px] max-w-[64px] px-2'
         : 'w-64 min-w-[220px] max-w-xs px-6',
       // 響應式圓角&高度
-      'sm:rounded-r-2xl sm:min-h-screen',
-      'min-h-screen rounded-none',
+      'sm:rounded-r-2xl sm:max-h-screen',
+      'max-h-screen rounded-none',
     ]"
   >
     <!-- LOGO區 -->
@@ -73,7 +73,7 @@
       </li>
     </ul>
     <div
-      class=""
+      class=" w-full py-2  "
       v-if="!collapsed && selected === 'chat'"
     >
       <AiHistory />
@@ -86,10 +86,10 @@
         collapsed
           ? 'flex-col space-y-2 items-center'
           : 'flex-row space-x-2 items-center',
-        'sm:absolute sm:left-0 sm:bottom-5',
+        
       ]"
     >
-      <button
+      <button 
         class="flex items-center justify-center py-1 px-2 rounded-full bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition w-full"
         :class="collapsed ? 'justify-center ' : 'justify-start  flex-1'"
         @click="goProfile"
