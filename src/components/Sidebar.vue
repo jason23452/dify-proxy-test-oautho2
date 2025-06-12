@@ -2,7 +2,7 @@
   <aside
     :class="[
       // flex基底
-      'flex flex-col  space-y-6 -0 py-6 bg-white shadow border-r border-slate-200 transition-all duration-300 z-10 overflow-y-auto relative pb-20',
+      'flex flex-col space-y-6 py-6 bg-white shadow border-r border-slate-200 transition-all duration-300 z-10 overflow-y-auto relative pb-20',
       // 響應式寬度
       collapsed
         ? 'w-16 min-w-[56px] max-w-[64px] px-2'
@@ -62,13 +62,14 @@
       </li>
     </ul>
 
-    <!-- Footer 絕對定位貼底 -->
+    <!-- Footer: sm 以上絕對定位，手機則正常流動 -->
     <div
       :class="[
-        'absolute left-0 bottom-5 w-full z-10 flex',
+        'w-full z-10 flex sm:px-4 ',
         collapsed
           ? 'flex-col space-y-2 items-center'
-          : 'flex-row space-x-2 items-center  '
+          : 'flex-row space-x-2 items-center',
+        'sm:absolute sm:left-0 sm:bottom-5'
       ]"
     >
       <button 
