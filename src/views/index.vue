@@ -1,29 +1,55 @@
 <template>
-  <div class="p-4">
-    <header>這是共用 Layout</header>
-    <main>
+  <div class="w-full flex bg-gray-50 min-h-screen">
+    <!-- Sidebar：PC 版，>= sm 顯示 -->
+    <Sidebar
+      :collapsed="collapsed"
+      @toggle="toggleSidebar"
+      class="hidden sm:block h-auto min-h-screen"
+    />
+
+    <!-- Sidebar：Mobile Drawer 版，< sm 時浮動 -->
+    <transition name="fade">
+      <div
+        v-if="showMobileSidebar"
+        class="fixed inset-0 z-50 flex"
+        aria-modal="true"
+        tabindex="-1"
+      >
+        <!-- 遮罩 -->
+        <div
+          class="fixed inset-0 bg-black/30 backdrop-blur-sm"
+          @click="closeMobileSidebar"
+        ></div>
+        <!-- 浮動側邊欄 -->
+        <Sidebar
+          :collapsed="false"
+          @toggle="closeMobileSidebar"
+          class="relative z-10 w-64 min-w-[220px] max-w-xs sm:hidden"
+        />
+      </div>
+    </transition>
+
+    <!-- 主要內容區 -->
+    <main
+      class="flex-1 bg-white p-6 transition-all duration-300"
+      :style="{ '--sidebar-width': collapsed ? '56px' : '256px' }"
+    >
+      <!-- 展開/收合按鈕 for mobile -->
+      <button
+        class="sm:hidden mb-4 inline-flex items-center justify-center w-10 h-10 rounded-full shadow-lg border-2 border-slate-200 bg-white/70 hover:bg-blue-100 transition"
+        @click="showMobileSidebar = true"
+        aria-label="展開選單"
+      >
+        <ChevronLeft class="w-6 h-6 rotate-180" />
+      </button>
+      <!-- Router 內容 -->
       <router-view />
+      <!-- 範例首頁歡迎區塊 -->
+      <div v-if="user.isLogged && route.path === '/'">
+        <p>歡迎, {{ user.account.name }}</p>
+        <p>使用者帳號: {{ user.account.username }}</p>
+      </div>
     </main>
-    <!-- <div v-if="user.isLogged">
-      <p>歡迎, {{ user.account.name }}</p>
-      <p>使用者帳號: {{ user.account.username }}</p>
-
-      <section v-if="data">
-        <h2 class="mt-6 text-xl font-semibold">Dify 初始化資料</h2>
-        <pre class="bg-gray-100 p-4 rounded overflow-auto"
-          >{{ formattedData }}
-        </pre>
-      </section>
-      <p v-else class="mt-4 text-gray-500">正在載入資料...</p>
-
-      <p v-if="error" class="mt-4 text-red-500">
-        載入資料失敗：{{ error.message }}
-      </p>
-    </div>
-
-    <div v-else>
-      <p>您尚未登入，請先點擊「Azure SSO 登入」</p>
-    </div> -->
   </div>
 </template>
 
@@ -31,12 +57,25 @@
 import { ref, computed, onMounted, watch } from "vue";
 import { useUserStore } from "../stores/user";
 import { Get_Mata } from "../constants/general";
+import Sidebar from "@/components/Sidebar.vue";
+import { useRoute } from "vue-router";
+import { ChevronLeft } from "lucide-vue-next";
 
 const user = useUserStore();
 const data = ref(null);
 const error = ref(null);
+const route = useRoute();
 
-// 格式化顯示 JSON
+const collapsed = ref(false);
+const showMobileSidebar = ref(false);
+
+function toggleSidebar() {
+  collapsed.value = !collapsed.value;
+}
+function closeMobileSidebar() {
+  showMobileSidebar.value = false;
+}
+
 const formattedData = computed(() => {
   try {
     return JSON.stringify(data.value, null, 2);
@@ -45,7 +84,6 @@ const formattedData = computed(() => {
   }
 });
 
-// 載入 Dify 資料的函式
 async function loadData() {
   data.value = null;
   error.value = null;
@@ -63,23 +101,21 @@ onMounted(() => {
     loadData();
   }
 });
-
-// 監聽登入狀態變更，登入後自動載入資料
 watch(
   () => user.isLogged,
   (loggedIn) => {
-    if (loggedIn) {
-      loadData();
-    }
+    if (loggedIn) loadData();
   }
 );
 </script>
 
 <style scoped>
-/* 自訂 Home 頁面樣式 */
-</style>
-<route lang="json">
-{
-  "layout": true
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
-</route>
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
