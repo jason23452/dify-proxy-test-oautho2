@@ -90,6 +90,12 @@ const records = ref([
     question: '請幫我生成一段祝賀詞',
     answer: '祝你前程似錦、心想事成！',
     createdAt: '2025-06-12T14:01:00'
+  },
+    {
+    id: 11,
+    question: '請幫我生成一段祝賀詞',
+    answer: '祝你前程似錦、心想事成！',
+    createdAt: '2025-06-12T14:01:00'
   }
   
 ])
