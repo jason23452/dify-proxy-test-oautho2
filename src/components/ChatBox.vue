@@ -54,30 +54,40 @@
 
 
 <script setup>
-import { ref } from "vue";
+import { ref  } from "vue";
 
 const messages = ref([{ role: "ai", text: "你好，有什麼可以幫你？" }]);
 
 const input = ref("");
 
-function sendMessage() {
-  if (!input.value.trim()) return;
-  // 1. 加入用戶訊息
-  messages.value.push({
-    role: "user",
-    text: input.value,
-  });
+// function sendMessage() {
+//   if (!input.value.trim()) return;
+//   // 1. 加入用戶訊息
+//   messages.value.push({
+//     role: "user",
+//     text: input.value,
+//   });
 
-  // 2. AI 假回應（此處你可替換成 API 呼叫）
-  setTimeout(() => {
-    messages.value.push({
-      role: "ai",
-      text: "這是 AI 的回覆內容，請接入你自己的 API。",
-    });
-  }, 800);
+//   // 2. AI 假回應（此處你可替換成 API 呼叫）
+//   setTimeout(() => {
+//     messages.value.push({
+//       role: "ai",
+//       text: "這是 AI 的回覆內容，請接入你自己的 API。",
+//     });
+//   }, 800);
 
-  input.value = "";
+//   input.value = "";
+// }
+
+
+function handleHistoryId(id) {
+  console.log('收到ID:', id);
+  // 在這裡可以存到你的變數或處理邏輯
 }
+
+
+
+
 </script>
 
 <style scoped>

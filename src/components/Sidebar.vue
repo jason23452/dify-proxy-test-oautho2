@@ -63,7 +63,7 @@
           ]"
         >
           <span
-            class=" w-4 h-4 rounded-full bg-blue-600/10 group-hover:bg-blue-600/20 transition"
+            class="w-4 h-4 rounded-full bg-blue-600/10 group-hover:bg-blue-600/20 transition"
           >
             <component
               v-if="item.icon"
@@ -139,7 +139,7 @@ import {
   Edit,
 } from "lucide-vue-next";
 import { useRouter, useRoute } from "vue-router";
-import { computed, defineProps } from "vue";
+import { computed ,inject  } from "vue";
 import AiHistory from "@/components/AiHistory.vue";
 
 const props = defineProps({
@@ -160,12 +160,15 @@ const isActive = (item) => item.route === route.path;
 // 判斷是不是在對話頁
 const isChat = computed(() => route.path === "/chat");
 
+const send_conversation_id = inject("send_conversation_id");
+
 function selectMenu(item) {
   if (item.route) router.push(item.route);
 }
-function addChat(e) {
-  e.stopPropagation();
-  alert("新增對話！");
+function addChat() {
+  // 傳空Id
+  const id = "";
+  send_conversation_id(id);
 }
 function goProfile() {
   router.push("/profile");

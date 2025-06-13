@@ -31,7 +31,7 @@
 
     <!-- 主要內容區 -->
     <main
-      class="flex-1 bg-white  transition-all duration-300"
+      class="flex-1 bg-white transition-all duration-300"
       :style="{ '--sidebar-width': collapsed ? '56px' : '256px' }"
     >
       <!-- 展開/收合按鈕 for mobile -->
@@ -43,7 +43,7 @@
         <ChevronLeft class="w-6 h-6 rotate-180" />
       </button>
       <!-- Router 內容 -->
-      <router-view />
+      <router-view  />
       <!-- 範例首頁歡迎區塊 -->
       <div v-if="user.isLogged && route.path === '/'">
         <p>歡迎, {{ user.account.name }}</p>
@@ -54,12 +54,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, provide } from "vue";
 import { useUserStore } from "../stores/user";
 import { Get_Mata } from "../constants/general";
 import Sidebar from "@/components/Sidebar.vue";
 import { useRoute } from "vue-router";
 import { ChevronLeft } from "lucide-vue-next";
+import { Get_Conversations, Chat_Messages } from "@/constants/general";
 
 const user = useUserStore();
 const data = ref(null);
@@ -96,9 +97,65 @@ async function loadData() {
   }
 }
 
+function unicodeToString(str) {
+  return str.replace(/\\u([\dA-Fa-f]{4})/g, function (match, grp) {
+    return String.fromCharCode(parseInt(grp, 16));
+  });
+}
+
+function formatTimestamp(timestamp) {
+  // 只處理「秒」格式
+  const date = new Date(timestamp * 1000); // 乘1000轉成毫秒
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+const history = ref([]);
+provide("history", history);
+
+provide("send_conversation_id", send_conversation_id);
+
+const Conversations_id = ref("");
+
+function send_conversation_id(id) {
+  Conversations_id.value = id;
+}
+
+
+
+async function GetHistory() {
+  const limit = 100;
+  const data = {
+    user: user.account.name,
+    limit: limit,
+  };
+  try {
+    const response = await Get_Conversations(data);
+    if (Array.isArray(response.data.data)) {
+      history.value = response.data.data.map((item) => ({
+        ...item,
+        name: unicodeToString(item.name), // 這裡 name 再轉 unicode
+        updated_at: formatTimestamp(item.updated_at),
+      }));
+      console.log("父的", history.value);
+      // history.value = [];
+    }
+    console.log(history.value);
+  } catch (error) {
+    console.error("Error fetching history:", error);
+    history.value = [];
+  }
+}
+
 onMounted(() => {
   if (user.isLogged) {
     loadData();
+    GetHistory();
   }
 });
 watch(
