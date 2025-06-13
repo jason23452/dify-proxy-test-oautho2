@@ -1,11 +1,8 @@
 <template>
- 
-
-    <ChatBox/>
-
+    <ChatBox  />
+  
 </template>
 
 <script setup>
-    import ChatBox from '@/components/ChatBox.vue';
-    
+import ChatBox from "@/components/ChatBox.vue";
 </script>

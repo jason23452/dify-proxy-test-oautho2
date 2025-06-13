@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex bg-gray-50 min-h-screen">
+  <div class="w-full flex bg-gray-50 min-h-screen h-screen">
     <!-- Sidebar：PC 版，>= sm 顯示 -->
     <Sidebar
       :collapsed="collapsed"
@@ -31,7 +31,7 @@
 
     <!-- 主要內容區 -->
     <main
-      class="flex-1 bg-white p-6 transition-all duration-300"
+      class="flex-1 bg-white  transition-all duration-300"
       :style="{ '--sidebar-width': collapsed ? '56px' : '256px' }"
     >
       <!-- 展開/收合按鈕 for mobile -->

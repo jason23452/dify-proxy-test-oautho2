@@ -10,11 +10,15 @@
     ]"
   >
     <!-- LOGO區 -->
-    <div class="flex flex-col items-center w-full border-b border-gray-200 py-4 gap-4">
+    <div
+      class="flex flex-col items-center w-full border-b border-gray-200 py-4 gap-4"
+    >
       <div
-        :class="collapsed
-          ? 'flex flex-col items-center space-y-2'
-          : 'flex flex-row items-center justify-center space-x-3 w-full'"
+        :class="
+          collapsed
+            ? 'flex flex-col items-center space-y-2'
+            : 'flex flex-row items-center justify-center space-x-3 w-full'
+        "
       >
         <span
           class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white text-2xl font-bold shadow"
@@ -24,7 +28,8 @@
         <span
           v-if="!collapsed"
           class="text-2xl font-bold text-slate-800 tracking-tight"
-        >GenAI</span>
+          >GenAI</span
+        >
         <button
           v-if="!collapsed && isChat"
           @click="addChat"
@@ -51,18 +56,25 @@
           :class="[
             'flex items-center transition group rounded-full',
             'max-sm:w-12 max-sm:h-12 max-sm:justify-center max-sm:p-0',
-            'sm:w-full sm:px-4 sm:py-3 sm:justify-start',
+            'sm:w-full sm:px-3 sm:py-3 sm:justify-start',
             isActive(item)
               ? 'bg-blue-600 text-white font-semibold shadow'
               : 'text-slate-800 hover:bg-slate-50 hover:text-blue-600',
           ]"
         >
-          <component
-            v-if="item.icon"
-            :is="item.icon"
-            class="transition-all duration-200 w-6 h-6"
-          />
-          <span class="ml-3 max-sm:hidden">{{ item.label }}</span>
+          <span
+            class=" w-4 h-4 rounded-full bg-blue-600/10 group-hover:bg-blue-600/20 transition"
+          >
+            <component
+              v-if="item.icon"
+              :is="item.icon"
+              class="transition-all duration-200 w-4 h-4"
+            />
+          </span>
+          <!-- 只在「未collapsed」且「sm以上」才顯示 label -->
+          <span v-if="!collapsed" class="ml-3 hidden sm:inline">{{
+            item.label
+          }}</span>
         </button>
       </li>
     </ul>
