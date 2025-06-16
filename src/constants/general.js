@@ -4,6 +4,7 @@ import {
   GET_META,
   GET_CONVERSATIONS,
   GET_CONVERSATION_HISTORY_MESSAGES,
+  DELETE_CONVERSATION,
 } from "./server.js";
 
 export const Get_Mata = async (data) => {
@@ -21,3 +22,11 @@ export const Chat_Messages = async (data) => {
 export const Get_conversation_history_messages = async (data) => {
   return await ApiService.get(GET_CONVERSATION_HISTORY_MESSAGES, data);
 };
+
+
+
+export const Delete_Conversation  = async (data) => {
+  return await ApiService.delete(DELETE_CONVERSATION+"/"+data.conversation_id , data);
+};
+
+

@@ -27,7 +27,7 @@
 
         <!-- 刪除icon -->
         <button
-          @click="deleteRecord(record.id)"
+          @click="Set_deleteRecord(record.id)"
           class="ml-3 text-slate-400 hover:text-red-500 transition"
           title="刪除"
         >
@@ -41,21 +41,24 @@
 <script setup>
 import { ref, onMounted, inject } from "vue";
 import { Trash2 } from "lucide-vue-next";
-
+  
 
 const history = inject('history', ref([])) // 沒拿到就用空陣列
 
 
 const send_conversation_id = inject('send_conversation_id')
+const deleteRecord = inject('deleteRecord')
 
 
-
-function deleteRecord(id) {
-  records.value = records.value.filter((r) => r.id !== id);
+function Set_deleteRecord(id) {
+  // history.value = history.value.filter((r) => r.id !== id);
+  deleteRecord(id);
+  
 }
 
 function Set_History_id(id) {
   send_conversation_id(id)
+  console.log("ID:", id);
 }
 
 </script>

@@ -49,8 +49,6 @@ async function GetConversationHistoryMessages(Conversations_id) {
 }
 
 
-
-
 function parseStreamingData(str) {
   // 移除空白行，split by "data: "（或 \n）
   return str
@@ -95,6 +93,12 @@ async function handleSendMessage(msg) {
     console.error(error);
   }
 }
+
+onMounted(() => {
+  if (Conversations_id.value) {
+    GetConversationHistoryMessages(Conversations_id.value);
+  }
+});
 
 
 </script>

@@ -60,13 +60,12 @@ import { Get_Mata } from "../constants/general";
 import Sidebar from "@/components/Sidebar.vue";
 import { useRoute } from "vue-router";
 import { ChevronLeft } from "lucide-vue-next";
-import { Get_Conversations, Chat_Messages } from "@/constants/general";
+import { Get_Conversations, Delete_Conversation } from "@/constants/general";
 
 const user = useUserStore();
 const data = ref(null);
 const error = ref(null);
 const route = useRoute();
-
 const collapsed = ref(false);
 const showMobileSidebar = ref(false);
 
@@ -123,27 +122,65 @@ const Conversations_id = ref("");
 provide("Conversations_id", Conversations_id);
 
 provide("send_conversation_id", send_conversation_id);
+provide("deleteRecord", deleteRecord);
+
+async function deleteRecord(id) {
+  console.log(`Deleting conversation with ID: ${id}`);
+  const userName = user.account.name;
+
+  try {
+    // 發送 DELETE 請求，帶上對話 id 及 user 名稱
+    await Delete_Conversation({
+      conversation_id: id,
+      user: userName,
+    });
+
+    // Dify 回傳 204 No Content，這裡直接當作刪除成功
+    console.log(`Conversation ${id} deleted successfully.`);
+    // 刪除前端顯示的對話
+    history.value = history.value.filter((record) => record.id !== id);
+
+    // 如果剛好選中的對話被刪了，清空 Conversations_id
+    if (Conversations_id.value === id) {
+      Conversations_id.value = "";
+    }
+  } catch (error) {
+    console.error("Error deleting conversation:", error);
+  }
+}
 
 function send_conversation_id(id) {
   Conversations_id.value = id;
+  console.log("Selected conversation ID:", id);
 }
+
+watch(Conversations_id, (newVal) => {
+  if (newVal) {
+    GetHistory();
+  }
+});
 
 async function GetHistory() {
   const limit = 100;
   const data = {
     user: user.account.name,
     limit: limit,
+    sort_by: "updated_at",
   };
   try {
     const response = await Get_Conversations(data);
     if (Array.isArray(response.data.data)) {
-      history.value = response.data.data.map((item) => ({
-        ...item,
-        name: unicodeToString(item.name), // 這裡 name 再轉 unicode
-        updated_at: formatTimestamp(item.updated_at),
-      }));
+      response.data.data.forEach((item) => {
+        // 只 unshift 不同 id 的
+        if (!history.value.some((h) => h.id === item.id)) {
+          history.value.unshift({
+            ...item,
+            name: unicodeToString(item.name),
+            updated_at: formatTimestamp(item.updated_at),
+          });
+        }
+      });
       console.log("父的", history.value);
-      // history.value = [];
     }
     console.log(history.value);
   } catch (error) {
