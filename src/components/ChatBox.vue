@@ -38,38 +38,49 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, computed, onMounted , watch} from "vue";
+import { ref, watch } from "vue";
 import ChatBubble from "@/components/ChatBubble.vue";
+const emit = defineEmits(["send"]);
 
 const props = defineProps({
   messages: {
     type: Array,
     required: true,
   },
+  mode: {
+    type: String,
+    default: "history", // 預設模式
+  },
 });
 
 // 依序合併 user/ai 訊息
-const mergedMessages = computed(() => {
-  // props.messages 每筆 {id, answer, query}
-  // 一個 user, 一個 ai，組成一個陣列
-  const arr = [];
-  props.messages.forEach(msg => {
-    // 先 user 再 ai
-    arr.push({
-      id: msg.id,
-      role: "user",
-      text: msg.query,
-    });
-    arr.push({
-      // id: msg.id + "_ai",
-      role: "ai",
-      text: msg.answer,
-    });
-  });
-  return arr;
-});
+const mergedMessages = ref([]);
+
+// 使用 watch 監控 messages
+watch(
+  () => [props.messages, props.mode],
+  ([messages, mode]) => {
+    const arr = [];
+    if (mode === "history") {
+      messages.forEach((msg) => {
+        arr.push({
+          id: msg.id,
+          role: "user",
+          text: msg.query,
+        });
+        arr.push({
+          role: "ai",
+          text: msg.answer,
+        });
+      });
+    } else {
+      console.warn("未知的模式:", mode);
+    }
+    mergedMessages.value = arr;
+  },
+  { immediate: true, deep: true }
+);
 
 // 頭像
 const userAvatar = "https://i.pravatar.cc/100?img=1";
@@ -78,19 +89,10 @@ const aiAvatar = "https://i.pravatar.cc/100?img=5";
 // 輸入框
 const input = ref("");
 
-// 提交訊息（這邊只模擬送出 user 訊息）
+// 提交訊息
 function sendMessage() {
   if (!input.value.trim()) return;
-  // 這裡一般會 emit event 給父組件或呼叫 API
-  // 這裡範例只清空輸入框
+  emit("send", input.value);
   input.value = "";
 }
-
-
-// onMounted(() => {
-//   // 初始化或其他邏輯
-//   console.log("ChatBox mounted with messages:", props.messages);
-// });
-
 </script>
-
