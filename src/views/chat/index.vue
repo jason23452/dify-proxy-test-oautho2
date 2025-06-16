@@ -48,6 +48,9 @@ async function GetConversationHistoryMessages(Conversations_id) {
   }
 }
 
+
+
+
 function parseStreamingData(str) {
   // 移除空白行，split by "data: "（或 \n）
   return str
@@ -75,10 +78,23 @@ async function handleSendMessage(msg) {
   };
   try {
     const response = await Chat_Messages(data);
-    ChatMessages.value = parseStreamingData(response.data);
-    mode.value = "chat"; // 切換到聊天模式
-    // console.log("訊息已發送:", response);
+    // 解析 stream 資料（array）
+    const parsedMessages = parseStreamingData(response.data);
+
+    ChatMessages.value = parsedMessages;
+
+    // 從最後一筆訊息取 conversation_id（通常每筆都一樣，只要取一個就好）
+    if (parsedMessages.length > 0 && parsedMessages[parsedMessages.length - 1].conversation_id) {
+      Conversations_id.value = parsedMessages[parsedMessages.length - 1].conversation_id;
+    }
+    // 或者如果每筆都一樣，也可用 parsedMessages[0].conversation_id
+
+    mode.value = "chat";
     console.log("訊息已發送:", ChatMessages.value);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }
+
+
 </script>

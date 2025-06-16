@@ -62,45 +62,47 @@ watch(
   () => [props.messages, props.mode],
   ([messages, mode]) => {
     if (mode === "history") {
-      // 直接重建
+      // 直接重建歷史訊息
       const arr = [];
       messages.forEach((msg) => {
         arr.push({
-          id: msg.id,
+          id: msg.message_id,     // user id 用 message_id
           role: "user",
           text: msg.query,
         });
         arr.push({
+          id: msg.task_id,        // ai id 用 task_id
           role: "ai",
           text: msg.answer,
         });
       });
       mergedMessages.value = arr;
     } else if (mode === "chat") {
-      // 累積訊息
       messages.forEach((msg) => {
-        // 只處理 ai bubble
-        let found = mergedMessages.value.find(
+        // 找到同 task_id 且 role=user 的訊息
+        let userMsg = mergedMessages.value.find(
+          (item) => item.id === msg.task_id && item.role === "user"
+        );
+        if (userMsg) {
+          // user id 換成 message_id
+          userMsg.id = msg.message_id;
+        }
+        // ai 回應 id 用 task_id
+        let aiMsg = mergedMessages.value.find(
           (item) => item.id === msg.task_id && item.role === "ai"
         );
-        if (found) {
-          found.text += msg.answer;
+        if (aiMsg) {
+          aiMsg.text += msg.answer;
         } else {
           mergedMessages.value.push({
-            id: msg.message_id,
-            role: "user",
-            text: input.value,
-          });
-          mergedMessages.value.push({
-            event: msg.event,
             id: msg.task_id,
             role: "ai",
             text: msg.answer,
           });
         }
       });
+
       console.log("合併後的訊息:", mergedMessages.value);
-      // 這裡不需要重新賦值，因為 mergedMessages.value 已經是響應式陣列
     } else {
       console.warn("未知的模式:", mode);
     }
@@ -108,17 +110,27 @@ watch(
   { immediate: true, deep: true }
 );
 
+
+
 // 頭像
 const userAvatar = "https://i.pravatar.cc/100?img=1";
 const aiAvatar = "https://i.pravatar.cc/100?img=5";
 
 // 輸入框
 const input = ref("");
+const lastTempId = ref(null); // 暫存臨時 id
 
 // 提交訊息
 function sendMessage() {
   if (!input.value.trim()) return;
+  const tempId = crypto.randomUUID();
   emit("send", input.value);
+  mergedMessages.value.push({
+    id: tempId,
+    role: "user",
+    text: input.value,
+  });
+  lastTempId.value = tempId; // 記住臨時 id
   input.value = "";
 }
 </script>
