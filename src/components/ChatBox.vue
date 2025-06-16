@@ -61,8 +61,9 @@ const mergedMessages = ref([]);
 watch(
   () => [props.messages, props.mode],
   ([messages, mode]) => {
-    const arr = [];
     if (mode === "history") {
+      // 直接重建
+      const arr = [];
       messages.forEach((msg) => {
         arr.push({
           id: msg.id,
@@ -74,10 +75,35 @@ watch(
           text: msg.answer,
         });
       });
+      mergedMessages.value = arr;
+    } else if (mode === "chat") {
+      // 累積訊息
+      messages.forEach((msg) => {
+        // 只處理 ai bubble
+        let found = mergedMessages.value.find(
+          (item) => item.id === msg.task_id && item.role === "ai"
+        );
+        if (found) {
+          found.text += msg.answer;
+        } else {
+          mergedMessages.value.push({
+            id: msg.message_id,
+            role: "user",
+            text: input.value,
+          });
+          mergedMessages.value.push({
+            event: msg.event,
+            id: msg.task_id,
+            role: "ai",
+            text: msg.answer,
+          });
+        }
+      });
+      console.log("合併後的訊息:", mergedMessages.value);
+      // 這裡不需要重新賦值，因為 mergedMessages.value 已經是響應式陣列
     } else {
       console.warn("未知的模式:", mode);
     }
-    mergedMessages.value = arr;
   },
   { immediate: true, deep: true }
 );
