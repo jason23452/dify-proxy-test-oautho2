@@ -65,6 +65,10 @@ function parseStreamingData(str) {
     .filter((x) => !!x);
 }
 
+
+
+
+
 async function handleSendMessage(msg) {
   const data = {
     conversation_id: Conversations_id.value,

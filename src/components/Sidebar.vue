@@ -139,7 +139,7 @@ import {
   Edit,
 } from "lucide-vue-next";
 import { useRouter, useRoute } from "vue-router";
-import { computed ,inject  } from "vue";
+import { computed, inject } from "vue";
 import AiHistory from "@/components/AiHistory.vue";
 
 const props = defineProps({

@@ -73,7 +73,7 @@ watch(
         arr.push({
           id: msg.task_id,        // ai id 用 task_id
           role: "ai",
-          text: msg.answer,
+          text: unicodeToString(msg.answer), // 這裡建議也轉一下
         });
       });
       mergedMessages.value = arr;
@@ -92,12 +92,13 @@ watch(
           (item) => item.id === msg.task_id && item.role === "ai"
         );
         if (aiMsg) {
-          aiMsg.text += msg.answer;
+          // << 這裡用 unicodeToString >>
+          aiMsg.text += unicodeToString(msg.answer);
         } else {
           mergedMessages.value.push({
             id: msg.task_id,
             role: "ai",
-            text: msg.answer,
+            text: unicodeToString(msg.answer),
           });
         }
       });
@@ -110,6 +111,13 @@ watch(
   { immediate: true, deep: true }
 );
 
+
+
+function unicodeToString(str) {
+  return typeof str === "string"
+    ? str.replace(/\\u([\dA-Fa-f]{4})/g, (match, grp) => String.fromCharCode(parseInt(grp, 16)))
+    : "";
+}
 
 
 // 頭像
