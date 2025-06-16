@@ -6,12 +6,13 @@
     >
       暫無歷史紀錄
     </div>
-    <div v-else class="space-y-4">
+    <div v-else class="space-y-4 ">
       <div
         v-for="record in history"
         :key="record.id"
         @click="Set_History_id(record.id)"
         class="bg-white rounded-2xl shadow flex items-center justify-between border border-slate-200 hover:shadow-lg transition px-4 py-3"
+        
       >
         <!-- 顯示 name（已經是 Unicode 格式） -->
         <div class="flex flex-col">
@@ -54,7 +55,7 @@ function deleteRecord(id) {
 }
 
 function Set_History_id(id) {
-    send_conversation_id(id)
+  send_conversation_id(id)
 }
 
 </script>

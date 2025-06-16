@@ -1,39 +1,25 @@
 <template>
-  <div class="min-h-screen  relative flex flex-col p-4 sm:p-8"> <!-- 這裡加 flex flex-col -->
+  <div class="min-h-screen relative flex flex-col py-6 px-8 bg-slate-50">
     <!-- Chat Title -->
-    <h1 class="text-3xl font-bold text-slate-800">AI 對話框</h1>
+    <h1 class="text-3xl font-bold text-slate-800 mb-6">AI 對話框</h1>
 
     <!-- Chat Messages -->
-    <div class="space-y-4 flex-1 overflow-y-auto max-h-[calc(100vh-20px)]  sm:max-h-[calc(100vh-168px)] ">
-      <div
-        v-for="(msg, idx) in messages"
-        :key="idx"
-        :class="['flex', msg.role === 'user' ? 'justify-end' : 'justify-start']"
-      >
-        <div
-          :class="[
-            'rounded-2xl px-4 py-3 max-w-[75%] shadow transition-all',
-            msg.role === 'user'
-              ? 'bg-white text-slate-800 border border-blue-600'
-              : 'bg-slate-50 text-slate-800 border border-slate-200',
-          ]"
-        >
-          <div
-            v-if="msg.role === 'ai'"
-            class="text-teal-500 font-semibold text-sm mb-1"
-          >
-            AI
-          </div>
-          <div v-else class="text-blue-600 font-semibold text-sm mb-1">你</div>
-          <div class="text-base whitespace-pre-line">{{ msg.text }}</div>
-        </div>
-      </div>
+    <div
+      class="space-y-2 flex-1 overflow-y-auto max-h-[calc(100vh-20px)] sm:max-h-[calc(100vh-168px)] scrollbar-thin scrollbar-thumb-slate-200 px-8"
+    >
+      <ChatBubble
+        v-for="msg in mergedMessages"
+        :key="msg.id"
+        :message="msg.text"
+        :isUser="msg.role === 'user'"
+        :avatar="msg.role === 'user' ? userAvatar : aiAvatar"
+      />
     </div>
 
     <!-- Input Area -->
     <form
       @submit.prevent="sendMessage"
-      class="mt-auto flex items-center px-4 py-2 gap-2 w-full bg-white rounded-2xl border border-gray-500"
+      class="mt-auto flex items-center px-4 py-2 gap-2 w-full bg-white rounded-2xl border border-gray-200 shadow"
     >
       <textarea
         v-model="input"
@@ -54,42 +40,57 @@
 
 
 <script setup>
-import { ref  } from "vue";
+import { ref, computed, onMounted , watch} from "vue";
+import ChatBubble from "@/components/ChatBubble.vue";
 
-const messages = ref([{ role: "ai", text: "你好，有什麼可以幫你？" }]);
+const props = defineProps({
+  messages: {
+    type: Array,
+    required: true,
+  },
+});
 
+// 依序合併 user/ai 訊息
+const mergedMessages = computed(() => {
+  // props.messages 每筆 {id, answer, query}
+  // 一個 user, 一個 ai，組成一個陣列
+  const arr = [];
+  props.messages.forEach(msg => {
+    // 先 user 再 ai
+    arr.push({
+      id: msg.id,
+      role: "user",
+      text: msg.query,
+    });
+    arr.push({
+      // id: msg.id + "_ai",
+      role: "ai",
+      text: msg.answer,
+    });
+  });
+  return arr;
+});
+
+// 頭像
+const userAvatar = "https://i.pravatar.cc/100?img=1";
+const aiAvatar = "https://i.pravatar.cc/100?img=5";
+
+// 輸入框
 const input = ref("");
 
-// function sendMessage() {
-//   if (!input.value.trim()) return;
-//   // 1. 加入用戶訊息
-//   messages.value.push({
-//     role: "user",
-//     text: input.value,
-//   });
-
-//   // 2. AI 假回應（此處你可替換成 API 呼叫）
-//   setTimeout(() => {
-//     messages.value.push({
-//       role: "ai",
-//       text: "這是 AI 的回覆內容，請接入你自己的 API。",
-//     });
-//   }, 800);
-
-//   input.value = "";
-// }
-
-
-function handleHistoryId(id) {
-  console.log('收到ID:', id);
-  // 在這裡可以存到你的變數或處理邏輯
+// 提交訊息（這邊只模擬送出 user 訊息）
+function sendMessage() {
+  if (!input.value.trim()) return;
+  // 這裡一般會 emit event 給父組件或呼叫 API
+  // 這裡範例只清空輸入框
+  input.value = "";
 }
 
 
-
+// onMounted(() => {
+//   // 初始化或其他邏輯
+//   console.log("ChatBox mounted with messages:", props.messages);
+// });
 
 </script>
 
-<style scoped>
-/* 適合現代簡潔風格，可自由再微調 */
-</style>

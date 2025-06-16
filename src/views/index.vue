@@ -43,7 +43,7 @@
         <ChevronLeft class="w-6 h-6 rotate-180" />
       </button>
       <!-- Router 內容 -->
-      <router-view  />
+      <router-view />
       <!-- 範例首頁歡迎區塊 -->
       <div v-if="user.isLogged && route.path === '/'">
         <p>歡迎, {{ user.account.name }}</p>
@@ -118,15 +118,15 @@ function formatTimestamp(timestamp) {
 const history = ref([]);
 provide("history", history);
 
-provide("send_conversation_id", send_conversation_id);
-
 const Conversations_id = ref("");
+
+provide("Conversations_id", Conversations_id);
+
+provide("send_conversation_id", send_conversation_id);
 
 function send_conversation_id(id) {
   Conversations_id.value = id;
 }
-
-
 
 async function GetHistory() {
   const limit = 100;
