@@ -1,23 +1,24 @@
-// src/main.js
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import App from "./App.vue";
 import router from "./router";
 import { initializeMsal } from "./auth/msal";
+import { useUserStore } from "./stores/user";
 
 async function bootstrap() {
-  // 1. 初始化 MSAL
   await initializeMsal();
 
   const app = createApp(App);
-
-  // 2. 設定 Pinia 並載入 persistedstate
   const pinia = createPinia();
   pinia.use(piniaPluginPersistedstate);
   app.use(pinia);
-
   app.use(router);
+
+  // 初始化使用者狀態並啟動持久化與自動過期機制
+  const userStore = useUserStore();
+  await userStore.init();
+
   app.mount("#app");
 }
 

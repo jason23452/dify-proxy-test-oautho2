@@ -1,37 +1,55 @@
-// src/router/index.js
-import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
-import { msalInstance, loginRequest } from "../auth/msal";
+import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '../stores/user'
+
+import Layout from '../views/index.vue'
+import Login from '../views/login.vue'
+
+// 1. 自動導入所有子頁
+const modules = import.meta.glob('../views/*/index.vue')
+
+// 2. 自動組成 children 陣列
+const children = Object.keys(modules).map(path => {
+  // 解析路徑名稱：'../views/aaa/index.vue' => 'aaa'
+  const match = path.match(/..\/views\/([^/]+)\/index\.vue$/)
+  const routeName = match ? match[1] : null
+  return {
+    path: routeName,
+    component: modules[path], // 動態導入
+    meta: { requiresAuth: true }
+  }
+})
 
 const routes = [
-  { path: "/", name: "Home", component: Home, meta: { requiresAuth: true } },
-  // ... other routes
-];
+  {
+    path: '/',
+    component: Layout,
+    meta: { requiresAuth: true },
+    children
+  },
+  {
+    path: '/login',
+    component: Login
+  }
+]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,
-});
+  routes
+})
 
-// 2. async beforeEach，捕获 interaction_in_progress
-router.beforeEach(async (to, from) => {
-  const account = msalInstance.getActiveAccount();
-
-  if (to.meta.requiresAuth && !account) {
-    try {
-      // 觸發重導向後不會執行到下一行
-      await msalInstance.loginRedirect(loginRequest);
-    } catch (e) {
-      if (e.errorCode !== 'interaction_in_progress') {
-        console.error('loginRedirect error:', e)
-      }
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  if (to.meta.requiresAuth && !userStore.isLogged) {
+    if (to.path !== '/login') {
+      next({ path: '/login', query: { redirect: to.fullPath } })
+    } else {
+      next()
     }
-    // 阻止當前導航（瀏覽器會跳到 Azure 登入頁）
-    return false;
+  } else if (to.path === '/login' && userStore.isLogged) {
+    next({ path: '/' })
+  } else {
+    next()
   }
+})
 
-  // 允許導航
-  return true;
-});
-
-export default router;
+export default router
