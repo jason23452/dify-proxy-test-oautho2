@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { useUserStore } from '../stores/user'
 
 import Layout from '../views/index.vue'
-import Login from '../views/login.vue'
+import Login from '../views/Login.vue'
 
 // 1. 自動導入所有子頁
 const modules = import.meta.glob('../views/*/index.vue')
