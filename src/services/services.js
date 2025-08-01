@@ -5,8 +5,8 @@ const DIFY_API_KEY = import.meta.env.VITE_DIFY_API_KEY;
 
 const client = axios.create({
   baseURL: "/dify", // Vite proxy 前綴
-  timeout: 10000,
-  headers: { "Content-Type": "application/json" },
+  timeout: 3000000,
+  // headers: { "Content-Type": "application/json" },
 });
 
 client.interceptors.request.use(

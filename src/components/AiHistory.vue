@@ -41,9 +41,9 @@
 <script setup>
 import { ref, onMounted, inject } from "vue";
 import { Trash2 } from "lucide-vue-next";
-  
 
 const history = inject('history', ref([])) // 沒拿到就用空陣列
+
 
 
 const send_conversation_id = inject('send_conversation_id')

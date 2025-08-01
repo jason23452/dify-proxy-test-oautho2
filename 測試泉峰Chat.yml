@@ -1,0 +1,5562 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 泉峰Chat
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/google:0.0.9@d360bbc433f39be1b11909cb9c32e6be4a17ea06af083f9e1c7613bb802bf517
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.33@f5f1cd51a6c6b9506c39c7d41c9caf5f0ab795ef4e1fef714e63c74b6a406074
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.1.0@539dc0dde8ecaa84e61b8eeb154c3bb7fbc9caa80afd83763dd5860a725d2742
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.3.0@3d5be07581c53609a49d2bbb47be98c2e10820591bfc99f686b005d2c1ef95d9
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      - document
+      allowed_file_upload_methods:
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 1
+    opening_statement: 你好，我是泉峰聊天助手
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1752734565386-source-1752734769048-target
+      selected: false
+      source: '1752734565386'
+      sourceHandle: source
+      target: '1752734769048'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752734769048-429b3396-1623-41f2-9739-35a621c5d4db-1752734866671-target
+      selected: false
+      source: '1752734769048'
+      sourceHandle: 429b3396-1623-41f2-9739-35a621c5d4db
+      target: '1752734866671'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752734769048-4f8f9044-b207-4857-b894-03ecfb8feb76-17527353211860-target
+      selected: false
+      source: '1752734769048'
+      sourceHandle: 4f8f9044-b207-4857-b894-03ecfb8feb76
+      target: '17527353211860'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: answer
+      id: 1752735525772-source-1752735535324-target
+      selected: false
+      source: '1752735525772'
+      sourceHandle: source
+      target: '1752735535324'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752734769048-true-1752735678036-target
+      selected: false
+      source: '1752734769048'
+      sourceHandle: 'true'
+      target: '1752735678036'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1752735678036-fa9df08e-a123-43b6-b299-70f63533143b-1752735973190-target
+      selected: false
+      source: '1752735678036'
+      sourceHandle: fa9df08e-a123-43b6-b299-70f63533143b
+      target: '1752735973190'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1752736467465-true-1752735984410-target
+      selected: false
+      source: '1752736467465'
+      sourceHandle: 'true'
+      target: '1752735984410'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1752736467465-false-1752736484912-target
+      selected: false
+      source: '1752736467465'
+      sourceHandle: 'false'
+      target: '1752736484912'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752736484912-source-1752735525772-target
+      selected: false
+      source: '1752736484912'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752735984410-source-1752735525772-target
+      selected: false
+      source: '1752735984410'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752735678036-false-1752736568504-target
+      selected: false
+      source: '1752735678036'
+      sourceHandle: 'false'
+      target: '1752736568504'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1752736568504-true-1752736589463-target
+      selected: false
+      source: '1752736568504'
+      sourceHandle: 'true'
+      target: '1752736589463'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1752736589463-source-1752736657063-target
+      selected: false
+      source: '1752736589463'
+      sourceHandle: source
+      target: '1752736657063'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1752736657063-source-1752736703815-target
+      selected: false
+      source: '1752736657063'
+      sourceHandle: source
+      target: '1752736703815'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752736703815-true-1752736748912-target
+      selected: false
+      source: '1752736703815'
+      sourceHandle: 'true'
+      target: '1752736748912'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 1752736703815-false-1752735525772-target
+      selected: false
+      source: '1752736703815'
+      sourceHandle: 'false'
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1752736748912-true-17527368138340-target
+      selected: false
+      source: '1752736748912'
+      sourceHandle: 'true'
+      target: '17527368138340'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1752736748912-false-17527368177870-target
+      selected: false
+      source: '1752736748912'
+      sourceHandle: 'false'
+      target: '17527368177870'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752734769048-2f2a3869-ba68-40c6-9c01-ceb22afd2c2e-17527371904340-target
+      selected: false
+      source: '1752734769048'
+      sourceHandle: 2f2a3869-ba68-40c6-9c01-ceb22afd2c2e
+      target: '17527371904340'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17527371904340-false-17527357543590-target
+      selected: false
+      source: '17527371904340'
+      sourceHandle: 'false'
+      target: '17527357543590'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 17527371904340-true-1752737234013-target
+      selected: false
+      source: '17527371904340'
+      sourceHandle: 'true'
+      target: '1752737234013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 17527357543590-2efde9f3-d221-4e53-9b13-a107004a3464-17527372966980-target
+      selected: false
+      source: '17527357543590'
+      sourceHandle: 2efde9f3-d221-4e53-9b13-a107004a3464
+      target: '17527372966980'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 17527372966980-source-1752737430196-target
+      selected: false
+      source: '17527372966980'
+      sourceHandle: source
+      target: '1752737430196'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752737430196-source-1752735525772-target
+      selected: false
+      source: '1752737430196'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752736568504-false-1752737652803-target
+      selected: false
+      source: '1752736568504'
+      sourceHandle: 'false'
+      target: '1752737652803'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1752737652803-true-1752737668371-target
+      selected: false
+      source: '1752737652803'
+      sourceHandle: 'true'
+      target: '1752737668371'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1752737652803-false-1752737708595-target
+      selected: false
+      source: '1752737652803'
+      sourceHandle: 'false'
+      target: '1752737708595'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752737708595-source-1752735525772-target
+      selected: false
+      source: '1752737708595'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752737668371-source-1752735525772-target
+      selected: false
+      source: '1752737668371'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752737472348-source-1752735525772-target
+      selected: false
+      source: '1752737472348'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17527368177870-source-1752735525772-target
+      selected: false
+      source: '17527368177870'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17527368138340-source-1752735525772-target
+      selected: false
+      source: '17527368138340'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: if-else
+      id: 1752735973190-source-1753148961959-target
+      selected: false
+      source: '1752735973190'
+      sourceHandle: source
+      target: '1753148961959'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1753148961959-true-1752736467465-target
+      selected: false
+      source: '1753148961959'
+      sourceHandle: 'true'
+      target: '1752736467465'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1753148961959-false-1753149003530-target
+      selected: false
+      source: '1753148961959'
+      sourceHandle: 'false'
+      target: '1753149003530'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1753149003530-source-17531491849810-target
+      selected: false
+      source: '1753149003530'
+      sourceHandle: source
+      target: '17531491849810'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 17531491849810-source-17531495527010-target
+      selected: false
+      source: '17531491849810'
+      sourceHandle: source
+      target: '17531495527010'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 17531495527010-false-1752735525772-target
+      selected: false
+      source: '17531495527010'
+      sourceHandle: 'false'
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17531495527010-true-17531496348530-target
+      selected: false
+      source: '17531495527010'
+      sourceHandle: 'true'
+      target: '17531496348530'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531496348530-true-17531496483830-target
+      selected: false
+      source: '17531496348530'
+      sourceHandle: 'true'
+      target: '17531496483830'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531496348530-false-17531496534910-target
+      selected: false
+      source: '17531496348530'
+      sourceHandle: 'false'
+      target: '17531496534910'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17531496534910-source-1752735525772-target
+      selected: false
+      source: '17531496534910'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17531496483830-source-1752735525772-target
+      selected: false
+      source: '17531496483830'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 17527353211860-ba1cc286-09ec-4e7d-a695-a042f9e7f45d-1753154308917-target
+      selected: false
+      source: '17527353211860'
+      sourceHandle: ba1cc286-09ec-4e7d-a695-a042f9e7f45d
+      target: '1753154308917'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: if-else
+      id: 1753154308917-source-1753154331571-target
+      selected: false
+      source: '1753154308917'
+      sourceHandle: source
+      target: '1753154331571'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1753154331571-true-1753154378249-target
+      selected: false
+      source: '1753154331571'
+      sourceHandle: 'true'
+      target: '1753154378249'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1753154378249-source-17531544512240-target
+      selected: false
+      source: '1753154378249'
+      sourceHandle: source
+      target: '17531544512240'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 17531544512240-source-17531544746100-target
+      selected: false
+      source: '17531544512240'
+      sourceHandle: source
+      target: '17531544746100'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17531544746100-true-17531544961460-target
+      selected: false
+      source: '17531544746100'
+      sourceHandle: 'true'
+      target: '17531544961460'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531544961460-true-1753154518960-target
+      selected: false
+      source: '17531544961460'
+      sourceHandle: 'true'
+      target: '1753154518960'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531544961460-false-1753154591622-target
+      selected: false
+      source: '17531544961460'
+      sourceHandle: 'false'
+      target: '1753154591622'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1753154518960-source-1752735525772-target
+      selected: false
+      source: '1753154518960'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1753154591622-source-1752735525772-target
+      selected: false
+      source: '1753154591622'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1753154331571-false-17531548004600-target
+      selected: false
+      source: '1753154331571'
+      sourceHandle: 'false'
+      target: '17531548004600'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531548004600-true-17531548102160-target
+      selected: false
+      source: '17531548004600'
+      sourceHandle: 'true'
+      target: '17531548102160'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531548004600-false-17531548147470-target
+      selected: false
+      source: '17531548004600'
+      sourceHandle: 'false'
+      target: '17531548147470'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17531548102160-source-1752735525772-target
+      selected: false
+      source: '17531548102160'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17531548147470-source-1752735525772-target
+      selected: false
+      source: '17531548147470'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531549175080-true-17531549340670-target
+      selected: false
+      source: '17531549175080'
+      sourceHandle: 'true'
+      target: '17531549340670'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17531549175080-false-17531549382980-target
+      selected: false
+      source: '17531549175080'
+      sourceHandle: 'false'
+      target: '17531549382980'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17531549340670-source-1752735525772-target
+      selected: false
+      source: '17531549340670'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17531549382980-source-1752735525772-target
+      selected: false
+      source: '17531549382980'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752734866671-14a379bc-00ae-4f27-b4d3-780e8698ace8-1753155267593-target
+      selected: false
+      source: '1752734866671'
+      sourceHandle: 14a379bc-00ae-4f27-b4d3-780e8698ace8
+      target: '1753155267593'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1753155267593-true-1752735040862-target
+      selected: false
+      source: '1753155267593'
+      sourceHandle: 'true'
+      target: '1752735040862'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1753155267593-false-1753155367553-target
+      selected: false
+      source: '1753155267593'
+      sourceHandle: 'false'
+      target: '1753155367553'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1752735040862-source-1752735525772-target
+      selected: false
+      source: '1752735040862'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1753155367553-source-1752735525772-target
+      selected: false
+      source: '1753155367553'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17527357543590-false-1752737472348-target
+      selected: false
+      source: '17527357543590'
+      sourceHandle: 'false'
+      target: '1752737472348'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 17531544746100-false-1752735525772-target
+      selected: false
+      source: '17531544746100'
+      sourceHandle: 'false'
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1752735678036-true-1753260981687-target
+      selected: false
+      source: '1752735678036'
+      sourceHandle: 'true'
+      target: '1753260981687'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 17527353211860-91ad5bf7-9d7c-4681-97ef-e94c3b4e9c65-1753260981687-target
+      selected: false
+      source: '17527353211860'
+      sourceHandle: 91ad5bf7-9d7c-4681-97ef-e94c3b4e9c65
+      target: '1753260981687'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1752734866671-3f5a05b1-7020-4407-9f0d-bb299ec49c8e-1753261753271-target
+      selected: false
+      source: '1752734866671'
+      sourceHandle: 3f5a05b1-7020-4407-9f0d-bb299ec49c8e
+      target: '1753261753271'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1753261791768-true-1753261818281-target
+      selected: false
+      source: '1753261791768'
+      sourceHandle: 'true'
+      target: '1753261818281'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1753261791768-false-1753261941616-target
+      selected: false
+      source: '1753261791768'
+      sourceHandle: 'false'
+      target: '1753261941616'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1753261818281-source-1752735525772-target
+      selected: false
+      source: '1753261818281'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1753261941616-source-1752735525772-target
+      selected: false
+      source: '1753261941616'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1753262133418-true-17532621644360-target
+      selected: false
+      source: '1753262133418'
+      sourceHandle: 'true'
+      target: '17532621644360'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1753262133418-false-17532621679110-target
+      selected: false
+      source: '1753262133418'
+      sourceHandle: 'false'
+      target: '17532621679110'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532621644360-source-1752735525772-target
+      selected: false
+      source: '17532621644360'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532621679110-source-1752735525772-target
+      selected: false
+      source: '17532621679110'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1752734866671-false-1753262880331-target
+      selected: false
+      source: '1752734866671'
+      sourceHandle: 'false'
+      target: '1753262880331'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1753262880331-false-1753262133418-target
+      selected: false
+      source: '1753262880331'
+      sourceHandle: 'false'
+      target: '1753262133418'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1753262880331-true-17532630193260-target
+      selected: false
+      source: '1753262880331'
+      sourceHandle: 'true'
+      target: '17532630193260'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 17532630193260-source-17532630549210-target
+      selected: false
+      source: '17532630193260'
+      sourceHandle: source
+      target: '17532630549210'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 17532630549210-source-17532630953880-target
+      selected: false
+      source: '17532630549210'
+      sourceHandle: source
+      target: '17532630953880'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17532630953880-true-17532633396990-target
+      selected: false
+      source: '17532630953880'
+      sourceHandle: 'true'
+      target: '17532633396990'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17532633396990-true-17532631967630-target
+      selected: false
+      source: '17532633396990'
+      sourceHandle: 'true'
+      target: '17532631967630'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17532633396990-false-17532632034150-target
+      selected: false
+      source: '17532633396990'
+      sourceHandle: 'false'
+      target: '17532632034150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 17532630953880-false-1752735525772-target
+      selected: false
+      source: '17532630953880'
+      sourceHandle: 'false'
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532631967630-source-1752735525772-target
+      selected: false
+      source: '17532631967630'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532632034150-source-1752735525772-target
+      selected: false
+      source: '17532632034150'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17527353211860-false-1753265538737-target
+      selected: false
+      source: '17527353211860'
+      sourceHandle: 'false'
+      target: '1753265538737'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1753265538737-false-17531549175080-target
+      selected: false
+      source: '1753265538737'
+      sourceHandle: 'false'
+      target: '17531549175080'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1753265538737-true-17532656251080-target
+      selected: false
+      source: '1753265538737'
+      sourceHandle: 'true'
+      target: '17532656251080'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 17532656251080-source-17532656589150-target
+      selected: false
+      source: '17532656251080'
+      sourceHandle: source
+      target: '17532656589150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 17532656589150-source-17532657072510-target
+      selected: false
+      source: '17532656589150'
+      sourceHandle: source
+      target: '17532657072510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17532657072510-true-17532657593550-target
+      selected: false
+      source: '17532657072510'
+      sourceHandle: 'true'
+      target: '17532657593550'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17532657593550-true-17532657888440-target
+      selected: false
+      source: '17532657593550'
+      sourceHandle: 'true'
+      target: '17532657888440'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17532657593550-false-17532657971910-target
+      selected: false
+      source: '17532657593550'
+      sourceHandle: 'false'
+      target: '17532657971910'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 17532657072510-false-1752735525772-target
+      selected: false
+      source: '17532657072510'
+      sourceHandle: 'false'
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532657888440-source-1752735525772-target
+      selected: false
+      source: '17532657888440'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532657971910-source-1752735525772-target
+      selected: false
+      source: '17532657971910'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: if-else
+      id: 1753261753271-source-17532660339500-target
+      selected: false
+      source: '1753261753271'
+      sourceHandle: source
+      target: '17532660339500'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17532660339500-false-1753261791768-target
+      selected: false
+      source: '17532660339500'
+      sourceHandle: 'false'
+      target: '1753261791768'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 17532660339500-true-17532660963790-target
+      selected: false
+      source: '17532660339500'
+      sourceHandle: 'true'
+      target: '17532660963790'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 17532660963790-source-17532661188310-target
+      selected: false
+      source: '17532660963790'
+      sourceHandle: source
+      target: '17532661188310'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 17532661188310-source-17532661846450-target
+      selected: false
+      source: '17532661188310'
+      sourceHandle: source
+      target: '17532661846450'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 17532661846450-true-17532662020450-target
+      selected: false
+      source: '17532661846450'
+      sourceHandle: 'true'
+      target: '17532662020450'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17532662020450-true-17532662112570-target
+      selected: false
+      source: '17532662020450'
+      sourceHandle: 'true'
+      target: '17532662112570'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 17532662020450-false-17532662160040-target
+      selected: false
+      source: '17532662020450'
+      sourceHandle: 'false'
+      target: '17532662160040'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 17532661846450-false-1752735525772-target
+      selected: false
+      source: '17532661846450'
+      sourceHandle: 'false'
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532662112570-source-1752735525772-target
+      selected: false
+      source: '17532662112570'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17532662160040-source-1752735525772-target
+      selected: false
+      source: '17532662160040'
+      sourceHandle: source
+      target: '1752735525772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: 模型选择
+          max_length: 48
+          options:
+          - DeepSeek
+          - DeepSeek-local
+          - Gemini
+          - chatgpt4o
+          required: true
+          type: select
+          variable: llm_node
+        - label: 深度思考
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: deep_think
+        - label: 联网搜索
+          max_length: 48
+          options: []
+          required: false
+          type: text-input
+          variable: online_search
+      height: 142
+      id: '1752734565386'
+      position:
+        x: -649.3094796458906
+        y: 93.04772373336843
+      positionAbsolute:
+        x: -649.3094796458906
+        y: 93.04772373336843
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 817784cb-7a45-469e-987d-0cc63001dd78
+            value: DeepSeek
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - llm_node
+          id: 'true'
+          logical_operator: and
+        - case_id: 2f2a3869-ba68-40c6-9c01-ceb22afd2c2e
+          conditions:
+          - comparison_operator: contains
+            id: 73be33fc-e7f6-40de-85c0-876112bf107f
+            value: DeepSeek-local
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - llm_node
+          id: 2f2a3869-ba68-40c6-9c01-ceb22afd2c2e
+          logical_operator: and
+        - case_id: 4f8f9044-b207-4857-b894-03ecfb8feb76
+          conditions:
+          - comparison_operator: contains
+            id: 79ad80db-f6b9-4b80-9d7c-85508e3c0e99
+            value: Gemini
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - llm_node
+          id: 4f8f9044-b207-4857-b894-03ecfb8feb76
+          logical_operator: and
+        - case_id: 429b3396-1623-41f2-9739-35a621c5d4db
+          conditions:
+          - comparison_operator: contains
+            id: fd29e4e0-9910-43c5-9b65-d5675d2fccb8
+            value: chatgpt4o
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - llm_node
+          id: 429b3396-1623-41f2-9739-35a621c5d4db
+          logical_operator: and
+        desc: ''
+        selected: true
+        title: 条件分支
+        type: if-else
+      height: 270
+      id: '1752734769048'
+      position:
+        x: -325.1711271246925
+        y: 86.04772373336846
+      positionAbsolute:
+        x: -325.1711271246925
+        y: 86.04772373336846
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 3f5a05b1-7020-4407-9f0d-bb299ec49c8e
+          conditions:
+          - comparison_operator: contains
+            id: 6376afa8-41a7-403a-836b-20d59fa26d24
+            sub_variable_condition:
+              case_id: 5bb5adeb-6d61-4721-843c-db7f46cda227
+              conditions:
+              - comparison_operator: in
+                id: ff28f901-312c-493e-9f7f-40c8f4427566
+                key: type
+                value:
+                - document
+                varType: string
+              logical_operator: and
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 3f5a05b1-7020-4407-9f0d-bb299ec49c8e
+          logical_operator: and
+        - case_id: 14a379bc-00ae-4f27-b4d3-780e8698ace8
+          conditions:
+          - comparison_operator: contains
+            id: 568f4dcd-d699-40f8-9f6a-92e99648a6c9
+            sub_variable_condition:
+              case_id: a1a9b889-78b3-4860-81ea-1f61843f660b
+              conditions:
+              - comparison_operator: in
+                id: 4e6b2122-fae0-4533-aa7a-b8c6a2f4ccf5
+                key: type
+                value:
+                - image
+                varType: string
+              logical_operator: and
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 14a379bc-00ae-4f27-b4d3-780e8698ace8
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4
+        type: if-else
+      height: 222
+      id: '1752734866671'
+      position:
+        x: 35.23867457501228
+        y: 817.9380982805724
+      positionAbsolute:
+        x: 35.23867457501228
+        y: 817.9380982805724
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            frequency_penalty: 0.1
+            presence_penalty: 0.1
+            temperature: 0.8
+            top_p: 0.9
+          mode: chat
+          name: gpt-3.5-turbo
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 96334871-ac1b-4358-9888-815ed5be936d
+          role: system
+          text: 你是一个专业的图像分析助手，根据用户提供的图片，生成分析结果
+        - id: e581034e-a6fe-4967-8092-60d5578c3ddc
+          role: user
+          text: '理解用户的需求：{{#sys.query#}}
+
+            请注意隐私信息，过滤违规内容，
+
+            如果用户需求不明确，可以引导用户'
+        selected: false
+        title: LLM-17
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: false
+      height: 90
+      id: '1752735040862'
+      position:
+        x: 746.5218656119882
+        y: 918.6691559119361
+      positionAbsolute:
+        x: 746.5218656119882
+        y: 918.6691559119361
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: ba1cc286-09ec-4e7d-a695-a042f9e7f45d
+          conditions:
+          - comparison_operator: contains
+            id: fee37ef4-30c3-417e-b529-b8d8b45b768b
+            sub_variable_condition:
+              case_id: c4a8b9d7-f38a-4c1c-be4b-c205a30cf198
+              conditions:
+              - comparison_operator: in
+                id: ff3f28ec-4163-4562-a955-3e444b17f507
+                key: type
+                value:
+                - document
+                varType: string
+              logical_operator: and
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: ba1cc286-09ec-4e7d-a695-a042f9e7f45d
+          logical_operator: and
+        - case_id: 91ad5bf7-9d7c-4681-97ef-e94c3b4e9c65
+          conditions:
+          - comparison_operator: contains
+            id: 05d92341-343d-44d1-81a8-e8c7b3c86c4c
+            sub_variable_condition:
+              case_id: 373c1226-446d-47b9-a7c1-e4bfa245ddb7
+              conditions:
+              - comparison_operator: in
+                id: bd243eef-a97f-4735-9daa-2a3c976bd348
+                key: type
+                value:
+                - image
+                varType: string
+              logical_operator: and
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 91ad5bf7-9d7c-4681-97ef-e94c3b4e9c65
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3
+        type: if-else
+      height: 222
+      id: '17527353211860'
+      position:
+        x: 21.359662733360608
+        y: 311.58002013857924
+      positionAbsolute:
+        x: 21.359662733360608
+        y: 311.58002013857924
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1752735984410'
+          - text
+        - - '1752736484912'
+          - text
+        - - '17531496483830'
+          - text
+        - - '17531496534910'
+          - text
+        - - '17527368138340'
+          - text
+        - - '17527368177870'
+          - text
+        - - '1752737668371'
+          - text
+        - - '1752737708595'
+          - text
+        - - '1752737430196'
+          - text
+        - - '1752737472348'
+          - text
+        - - '1753154518960'
+          - text
+        - - '1753154591622'
+          - text
+        - - '17531548147470'
+          - text
+        - - '17531548102160'
+          - text
+        - - '17531549340670'
+          - text
+        - - '17531549382980'
+          - text
+        - - '1752735040862'
+          - text
+        - - '1753155367553'
+          - text
+        - - '17531491849810'
+          - result
+        - - '1752736657063'
+          - result
+        - - '17531544512240'
+          - result
+        - - '1753261818281'
+          - text
+        - - '1753261941616'
+          - text
+        - - '17532621644360'
+          - text
+        - - '17532621679110'
+          - text
+        - - '17532630549210'
+          - result
+        - - '17532631967630'
+          - text
+        - - '17532632034150'
+          - text
+        - - '17532656589150'
+          - result
+        - - '17532657888440'
+          - text
+        - - '17532657971910'
+          - text
+        - - '17532661188310'
+          - result
+        - - '17532662112570'
+          - text
+        - - '17532662160040'
+          - text
+      height: 834
+      id: '1752735525772'
+      position:
+        x: 3561.3949136690144
+        y: 413.00776646720493
+      positionAbsolute:
+        x: 3561.3949136690144
+        y: 413.00776646720493
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1752735525772.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 105
+      id: '1752735535324'
+      position:
+        x: 3871.2330427165957
+        y: 369.1918116114876
+      positionAbsolute:
+        x: 3871.2330427165957
+        y: 369.1918116114876
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: fa9df08e-a123-43b6-b299-70f63533143b
+          conditions:
+          - comparison_operator: contains
+            id: f6b939db-0c2d-48c1-a172-2bfc2ca10964
+            sub_variable_condition:
+              case_id: 61e57233-e926-498d-bfb2-722728631d1b
+              conditions:
+              - comparison_operator: in
+                id: f9717048-b732-41c6-bdcf-58595586f37f
+                key: type
+                value:
+                - document
+                varType: string
+              logical_operator: and
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: fa9df08e-a123-43b6-b299-70f63533143b
+          logical_operator: and
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: a00b476a-83a8-4772-b739-886cb2053fca
+            sub_variable_condition:
+              case_id: 74edd698-70f3-425d-801d-48e80d9b9429
+              conditions:
+              - comparison_operator: in
+                id: 80b00005-6120-4a2a-9486-95bd8151ecd3
+                key: type
+                value:
+                - image
+                varType: string
+              logical_operator: or
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 条件分支-1
+        type: if-else
+      height: 222
+      id: '1752735678036'
+      position:
+        x: 30.983572698509874
+        y: -224.6752034787004
+      positionAbsolute:
+        x: 30.983572698509874
+        y: -224.6752034787004
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 2efde9f3-d221-4e53-9b13-a107004a3464
+          conditions:
+          - comparison_operator: contains
+            id: 4ffe7fe6-6002-4551-847a-e101ba5428e9
+            sub_variable_condition:
+              case_id: 43f98847-431a-43de-a37e-8fc6450c83e0
+              conditions:
+              - comparison_operator: in
+                id: 38000fec-ef5a-4b4d-abe1-18bf5f77bb88
+                key: type
+                value:
+                - document
+                varType: string
+              logical_operator: and
+            value: ''
+            varType: array[file]
+            variable_selector:
+            - sys
+            - files
+          id: 2efde9f3-d221-4e53-9b13-a107004a3464
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-2-1
+        type: if-else
+      height: 150
+      id: '17527357543590'
+      position:
+        x: 421.5823358251946
+        y: 28.672574350399884
+      positionAbsolute:
+        x: 421.5823358251946
+        y: 28.672574350399884
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '1752735973190'
+      position:
+        x: 428.1775463158525
+        y: -515.8893019438228
+      positionAbsolute:
+        x: 428.1775463158525
+        y: -515.8893019438228
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#1752735973190.text#}}
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 7ac5dd36-ce68-4d7c-9f69-102e4eb32bef
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 911ad1c7-88a0-460b-98c4-df360608a44b
+          role: user
+          text: '根据：{{#1752735973190.text#}}
+
+            理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-1
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1752735984410'
+      position:
+        x: 1733.9360297806309
+        y: -730.9132910963613
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: -730.9132910963613
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: a419796d-94cd-499c-acf4-b0d326010c90
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-2
+        type: if-else
+      height: 126
+      id: '1752736467465'
+      position:
+        x: 1120.5071180350383
+        y: -692.7214602998117
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: -692.7214602998117
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#1752735973190.text#}}
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ddd3a094-b13c-45a8-bd01-70a1eac18107
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: de9fa818-d86b-42a9-a0be-013d92677a23
+          role: user
+          text: '根据：{{#1752735973190.text#}}
+
+            理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1752736484912'
+      position:
+        x: 1733.9360297806309
+        y: -599.7745993159297
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: -599.7745993159297
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 86d3090e-e38e-4865-85f5-a51170eba87f
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - online_search
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-5
+        type: if-else
+      height: 126
+      id: '1752736568504'
+      position:
+        x: 428.1775463158525
+        y: -270.95084541922216
+      positionAbsolute:
+        x: 428.1775463158525
+        y: -270.95084541922216
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 谷歌搜索-1-2
+        tool_configurations: {}
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: cn
+          hl:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 54
+      id: '1752736589463'
+      position:
+        x: 760.1501038467554
+        y: -342.27447649207124
+      positionAbsolute:
+        x: 760.1501038467554
+        y: -342.27447649207124
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(text: str, input_data: list) -> dict:\n    if not input_data:\n\
+          \        return {\n            \"status\": \"fail\",\n            \"result\"\
+          : text\n        }\n    \n    results = input_data[0]['organic_results']\n\
+          \    cleaned_data = []\n\n    for index, result in enumerate(results[:5],\
+          \ 1):  # 只处理前5个结果\n        link = result.get('link', '').strip()\n     \
+          \   title = result.get('title', '').strip()\n        snippet = result.get('snippet',\
+          \ '').strip()\n        \n        if not (link and title and snippet):\n\
+          \            continue\n        \n        cleaned_text = f\"结果 {index}:\\\
+          n\"\n        cleaned_text += f\"链接: {link}\\n\"\n        cleaned_text +=\
+          \ f\"标题: {title}\\n\"\n        cleaned_text += f\"内容: {snippet}\\n\"\n \
+          \       cleaned_data.append(cleaned_text)\n\n    output_string = \"\\n\"\
+          .join(cleaned_data)\n\n    return {\n        \"status\": \"success\",\n\
+          \        \"result\": output_string\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行-1-2
+        type: code
+        variables:
+        - value_selector:
+          - '1752736589463'
+          - json
+          variable: input_data
+        - value_selector:
+          - '1752736589463'
+          - text
+          variable: text
+      height: 54
+      id: '1752736657063'
+      position:
+        x: 1120.5071180350383
+        y: -342.27447649207124
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: -342.27447649207124
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bd8a0894-463f-4899-a148-d4316a484446
+            value: success
+            varType: string
+            variable_selector:
+            - '1752736657063'
+            - status
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-7
+        type: if-else
+      height: 126
+      id: '1752736703815'
+      position:
+        x: 1428.9402998664732
+        y: -342.27447649207124
+      positionAbsolute:
+        x: 1428.9402998664732
+        y: -342.27447649207124
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 3bbdb27f-0688-4575-8c73-ee49c6c4ad6f
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-8
+        type: if-else
+      height: 126
+      id: '1752736748912'
+      position:
+        x: 1733.9360297806309
+        y: -311.8162880434238
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: -311.8162880434238
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#1752736657063.result#}}
+
+            '
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 7ac5dd36-ce68-4d7c-9f69-102e4eb32bef
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 911ad1c7-88a0-460b-98c4-df360608a44b
+          role: user
+          text: "请你根据这个信息 {{#1752736657063.result#}}来进行整理：\n\n1. 在每个分析段落结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n\
+            \   <a href=\"原始链接\" target=\"_blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ②\
+            \ ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\n\n3. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。\n\
+            4，基于所有搜索结果，提供一个全面的汇总分析\n"
+        selected: false
+        title: LLM-5
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17527368138340'
+      position:
+        x: 2502.458465076728
+        y: -231.97260394730785
+      positionAbsolute:
+        x: 2502.458465076728
+        y: -231.97260394730785
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#1752736657063.result#}}
+
+            '
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ddd3a094-b13c-45a8-bd01-70a1eac18107
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: de9fa818-d86b-42a9-a0be-013d92677a23
+          role: user
+          text: "\n请你根据这个信息 {{#1752736657063.result#}}来进行整理：\n\n1. 在每个分析段落结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n\
+            \   <a href=\"原始链接\" target=\"_blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ②\
+            \ ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\n\n3. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。\n\
+            4，基于所有搜索结果，提供一个全面的汇总分析\n"
+        selected: false
+        title: LLM-6
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17527368177870'
+      position:
+        x: 2502.458465076728
+        y: -101.28415879830236
+      positionAbsolute:
+        x: 2502.458465076728
+        y: -101.28415879830236
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: a419796d-94cd-499c-acf4-b0d326010c90
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-2
+        type: if-else
+      height: 126
+      id: '17527371904340'
+      position:
+        x: 30.983572698509874
+        y: 61.28054204891299
+      positionAbsolute:
+        x: 30.983572698509874
+        y: 61.28054204891299
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 不支持深度思考
+        desc: ''
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 102
+      id: '1752737234013'
+      position:
+        x: 428.1775463158525
+        y: -101.28415879830236
+      positionAbsolute:
+        x: 428.1775463158525
+        y: -101.28415879830236
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器-2
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '17527372966980'
+      position:
+        x: 760.1501038467554
+        y: -8.179900176240466
+      positionAbsolute:
+        x: 760.1501038467554
+        y: -8.179900176240466
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#17527372966980.text#}}
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 4d5bfd4e-abfd-476b-8606-2621af94e322
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 07b20b75-eb96-4984-bd98-35d1f8c6fafd
+          role: user
+          text: '根据{{#17527372966980.text#}}
+
+            理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-9
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1752737430196'
+      position:
+        x: 1120.5071180350383
+        y: -8.179900176240466
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: -8.179900176240466
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 652ee109-494d-42e0-9193-c447414c734d
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 2ee16f83-6579-4cc6-8449-59acc41977f2
+          role: user
+          text: '理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-10
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1752737472348'
+      position:
+        x: 760.1501038467554
+        y: 144.0280444515649
+      positionAbsolute:
+        x: 760.1501038467554
+        y: 144.0280444515649
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: ba8e2494-8a20-47ea-b43d-809f67129c1f
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-6
+        type: if-else
+      height: 126
+      id: '1752737652803'
+      position:
+        x: 760.1501038467554
+        y: -238.8422823925796
+      positionAbsolute:
+        x: 760.1501038467554
+        y: -238.8422823925796
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ad0acd39-da72-4f3c-a90e-c67a2d036f00
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: e99dfda1-fbed-4942-8003-6efcdc2f7bee
+          role: user
+          text: '理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-7
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1752737668371'
+      position:
+        x: 1120.5071180350383
+        y: -224.6752034787004
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: -224.6752034787004
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: e04b57c6-9785-4462-8903-b93636a9c7f3
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 87126887-220b-450b-8973-95b4509e6840
+          role: user
+          text: '理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-8
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1752737708595'
+      position:
+        x: 1120.5071180350383
+        y: -114.58734422231359
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: -114.58734422231359
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not contains
+            id: 1ca8b926-130d-4aab-84a0-3f345846b5e5
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - online_search
+          id: 'true'
+          logical_operator: and
+        desc: 是否搜索
+        selected: false
+        title: 条件分支-1-1
+        type: if-else
+      height: 154
+      id: '1753148961959'
+      position:
+        x: 760.1501038467554
+        y: -547.1592736273387
+      positionAbsolute:
+        x: 760.1501038467554
+        y: -547.1592736273387
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 谷歌搜索-1-1
+        tool_configurations: {}
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: cn
+          hl:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#1752735973190.text#}}'
+        type: tool
+      height: 54
+      id: '1753149003530'
+      position:
+        x: 1120.5071180350383
+        y: -460.7274554863535
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: -460.7274554863535
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(text: str, input_data: list) -> dict:\n    if not input_data:\n\
+          \        return {\n            \"status\": \"fail\",\n            \"result\"\
+          : text\n        }\n    \n    results = input_data[0]['organic_results']\n\
+          \    cleaned_data = []\n\n    for index, result in enumerate(results[:5],\
+          \ 1):  # 只处理前5个结果\n        link = result.get('link', '').strip()\n     \
+          \   title = result.get('title', '').strip()\n        snippet = result.get('snippet',\
+          \ '').strip()\n        \n        if not (link and title and snippet):\n\
+          \            continue\n        \n        cleaned_text = f\"结果 {index}:\\\
+          n\"\n        cleaned_text += f\"链接: {link}\\n\"\n        cleaned_text +=\
+          \ f\"标题: {title}\\n\"\n        cleaned_text += f\"内容: {snippet}\\n\"\n \
+          \       cleaned_data.append(cleaned_text)\n\n    output_string = \"\\n\"\
+          .join(cleaned_data)\n\n    return {\n        \"status\": \"success\",\n\
+          \        \"result\": output_string\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行-1-1
+        type: code
+        variables:
+        - value_selector:
+          - '1753149003530'
+          - json
+          variable: input_data
+        - value_selector:
+          - '1753149003530'
+          - text
+          variable: text
+      height: 54
+      id: '17531491849810'
+      position:
+        x: 1428.9402998664732
+        y: -460.7274554863535
+      positionAbsolute:
+        x: 1428.9402998664732
+        y: -460.7274554863535
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bd8a0894-463f-4899-a148-d4316a484446
+            value: success
+            varType: string
+            variable_selector:
+            - '17531491849810'
+            - status
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-3
+        type: if-else
+      height: 126
+      id: '17531495527010'
+      position:
+        x: 1733.9360297806309
+        y: -460.7274554863535
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: -460.7274554863535
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: a419796d-94cd-499c-acf4-b0d326010c90
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-1-4
+        type: if-else
+      height: 126
+      id: '17531496348530'
+      position:
+        x: 2144.9035095655954
+        y: -498.52963055763075
+      positionAbsolute:
+        x: 2144.9035095655954
+        y: -498.52963055763075
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}{{#17531491849810.result#}}
+
+            {{#1752735973190.text#}}
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 7ac5dd36-ce68-4d7c-9f69-102e4eb32bef
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 911ad1c7-88a0-460b-98c4-df360608a44b
+          role: user
+          text: "{{#1752735973190.text#}}\n请你根据这个信息{{#17531491849810.result#}}来进行整理：\n\
+            \n1. 在每个分析段落结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n   <a href=\"原始链接\" target=\"\
+            _blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ② ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\
+            \n\n3. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。\n4，基于所有搜索结果，提供一个全面的汇总分析\n"
+        selected: false
+        title: LLM-3
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17531496483830'
+      position:
+        x: 2502.458465076728
+        y: -576.3488755017685
+      positionAbsolute:
+        x: 2502.458465076728
+        y: -576.3488755017685
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            {{#1752735973190.text#}}
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ddd3a094-b13c-45a8-bd01-70a1eac18107
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: de9fa818-d86b-42a9-a0be-013d92677a23
+          role: user
+          text: "{{#1752735973190.text#}}\n请你根据这个信息 {{#17531491849810.result#}}来进行整理：\n\
+            \n1. 在每个分析段落结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n   <a href=\"原始链接\" target=\"\
+            _blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ② ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\
+            \n\n3. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。\n4，基于所有搜索结果，提供一个全面的汇总分析\n"
+        selected: false
+        title: LLM-4
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17531496534910'
+      position:
+        x: 2502.458465076728
+        y: -399.30606025667595
+      positionAbsolute:
+        x: 2502.458465076728
+        y: -399.30606025667595
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器 3
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '1753154308917'
+      position:
+        x: 421.5823358251946
+        y: 336.16729504979025
+      positionAbsolute:
+        x: 421.5823358251946
+        y: 336.16729504979025
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 2ffbf1c9-68f4-402d-acb3-f2bc7f290fc5
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - online_search
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-1
+        type: if-else
+      height: 126
+      id: '1753154331571'
+      position:
+        x: 760.1501038467554
+        y: 336.16729504979025
+      positionAbsolute:
+        x: 760.1501038467554
+        y: 336.16729504979025
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 谷歌搜索-3-1
+        tool_configurations: {}
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: cn
+          hl:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#1753154308917.text#}}'
+        type: tool
+      height: 54
+      id: '1753154378249'
+      position:
+        x: 1120.5071180350383
+        y: 271.73989708955435
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: 271.73989708955435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(text: str, input_data: list) -> dict:\n    if not input_data:\n\
+          \        return {\n            \"status\": \"fail\",\n            \"result\"\
+          : text\n        }\n    \n    results = input_data[0]['organic_results']\n\
+          \    cleaned_data = []\n\n    for index, result in enumerate(results[:5],\
+          \ 1):  # 只处理前5个结果\n        link = result.get('link', '').strip()\n     \
+          \   title = result.get('title', '').strip()\n        snippet = result.get('snippet',\
+          \ '').strip()\n        \n        if not (link and title and snippet):\n\
+          \            continue\n        \n        cleaned_text = f\"结果 {index}:\\\
+          n\"\n        cleaned_text += f\"链接: {link}\\n\"\n        cleaned_text +=\
+          \ f\"标题: {title}\\n\"\n        cleaned_text += f\"内容: {snippet}\\n\"\n \
+          \       cleaned_data.append(cleaned_text)\n\n    output_string = \"\\n\"\
+          .join(cleaned_data)\n\n    return {\n        \"status\": \"success\",\n\
+          \        \"result\": output_string\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行-3-1
+        type: code
+        variables:
+        - value_selector:
+          - '1753154378249'
+          - json
+          variable: input_data
+        - value_selector:
+          - '1753154378249'
+          - text
+          variable: text
+      height: 54
+      id: '17531544512240'
+      position:
+        x: 1428.9402998664732
+        y: 271.73989708955435
+      positionAbsolute:
+        x: 1428.9402998664732
+        y: 271.73989708955435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bd8a0894-463f-4899-a148-d4316a484446
+            value: success
+            varType: string
+            variable_selector:
+            - '17531544512240'
+            - status
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-3
+        type: if-else
+      height: 126
+      id: '17531544746100'
+      position:
+        x: 1733.9360297806309
+        y: 271.73989708955435
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: 271.73989708955435
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 3bbdb27f-0688-4575-8c73-ee49c6c4ad6f
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-4
+        type: if-else
+      height: 126
+      id: '17531544961460'
+      position:
+        x: 2049.076317600035
+        y: 221.9573029859621
+      positionAbsolute:
+        x: 2049.076317600035
+        y: 221.9573029859621
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}{{#17531544512240.result#}}{{#1753154308917.text#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 9e3586f9-cef2-4ca5-a10a-f5cc6a114d51
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: d0fa474f-4e2a-40b4-86c3-5195110a3332
+          role: user
+          text: "{{#1753154308917.text#}}\n请你根据这个信息 {{#17531544512240.result#}}来进行整理：\n\
+            \n1. 在每个分析段落结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n   <a href=\"原始链接\" target=\"\
+            _blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ② ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\
+            \n\n3. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。\n4，基于所有搜索结果，提供一个全面的汇总分析\n"
+        selected: false
+        title: LLM-11
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753154518960'
+      position:
+        x: 2502.458465076728
+        y: 127.07552080325587
+      positionAbsolute:
+        x: 2502.458465076728
+        y: 127.07552080325587
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#17531544512240.result#}}{{#1753154308917.text#}}{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 8909edaa-1f27-4a1d-864f-3fb3a6b91807
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 9d4988f1-329e-46cb-9530-c79f4729d896
+          role: user
+          text: "{{#1753154308917.text#}}\n请你根据这个信息 {{#17531544512240.result#}}来进行整理：\n\
+            \n1. 在每个分析段落结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n   <a href=\"原始链接\" target=\"\
+            _blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ② ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\
+            \n\n3. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。\n4，基于所有搜索结果，提供一个全面的汇总分析\n"
+        selected: false
+        title: LLM-12
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753154591622'
+      position:
+        x: 2502.458465076728
+        y: 291.77234062587667
+      positionAbsolute:
+        x: 2502.458465076728
+        y: 291.77234062587667
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 3bbdb27f-0688-4575-8c73-ee49c6c4ad6f
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-2
+        type: if-else
+      height: 126
+      id: '17531548004600'
+      position:
+        x: 1120.5071180350383
+        y: 413.00776646720493
+      positionAbsolute:
+        x: 1120.5071180350383
+        y: 413.00776646720493
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}{{#1753154308917.text#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 9e3586f9-cef2-4ca5-a10a-f5cc6a114d51
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: d0fa474f-4e2a-40b4-86c3-5195110a3332
+          role: user
+          text: "根据 {{#1753154308917.text#}} \n理解用户需求：{{#sys.query#}}\n1，如果用户输入无法解析时，提供修正建议\n\
+            2，禁止敏感词（政治、暴力、隐私）\n3，丰富回复结果，可以适当引导用户下一步"
+        selected: false
+        title: LLM-14
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17531548102160'
+      position:
+        x: 1428.9402998664732
+        y: 382.9492800498817
+      positionAbsolute:
+        x: 1428.9402998664732
+        y: 382.9492800498817
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#1753154308917.text#}}{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: qwen-turbo-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8909edaa-1f27-4a1d-864f-3fb3a6b91807
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 9d4988f1-329e-46cb-9530-c79f4729d896
+          role: user
+          text: '根据：{{#1753154308917.text#}}
+
+            理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步
+
+            '
+        selected: false
+        title: LLM-13
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 96
+      id: '17531548147470'
+      position:
+        x: 1442.5610042120313
+        y: 489.0925401781201
+      positionAbsolute:
+        x: 1442.5610042120313
+        y: 489.0925401781201
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 3bbdb27f-0688-4575-8c73-ee49c6c4ad6f
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-5
+        type: if-else
+      height: 126
+      id: '17531549175080'
+      position:
+        x: 753.199763138455
+        y: 682.1550276873479
+      positionAbsolute:
+        x: 753.199763138455
+        y: 682.1550276873479
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            enable_search: false
+          mode: chat
+          name: qwen-max-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 9e3586f9-cef2-4ca5-a10a-f5cc6a114d51
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: d0fa474f-4e2a-40b4-86c3-5195110a3332
+          role: user
+          text: '理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-15
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 96
+      id: '17531549340670'
+      position:
+        x: 1082.1561927075086
+        y: 710.5360921748313
+      positionAbsolute:
+        x: 1082.1561927075086
+        y: 710.5360921748313
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            enable_search: false
+            enable_thinking: false
+          mode: chat
+          name: qwen-turbo-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8909edaa-1f27-4a1d-864f-3fb3a6b91807
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 9d4988f1-329e-46cb-9530-c79f4729d896
+          role: user
+          text: '理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-16
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 96
+      id: '17531549382980'
+      position:
+        x: 1082.1561927075086
+        y: 851.3025363103235
+      positionAbsolute:
+        x: 1082.1561927075086
+        y: 851.3025363103235
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bf349083-f70b-467e-a1c6-3feeeaec1362
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-1
+        type: if-else
+      height: 126
+      id: '1753155267593'
+      position:
+        x: 421.5823358251946
+        y: 945.3131215845124
+      positionAbsolute:
+        x: 421.5823358251946
+        y: 945.3131215845124
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-3.5-turbo
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: e13a363e-72bd-4588-81b4-ab710ab9980d
+          role: system
+          text: 你是一个专业的图像分析助手，根据用户提供的图片，生成分析结果
+        - id: edc1a99a-8c25-4c47-952b-49893588a4b8
+          role: user
+          text: '理解用户的需求：{{#sys.query#}}
+
+            请注意隐私信息，过滤违规内容，
+
+            如果用户需求不明确，可以引导用户'
+        selected: false
+        title: LLM-18
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: false
+      height: 90
+      id: '1753155367553'
+      position:
+        x: 746.5218656119882
+        y: 1031.6373242626355
+      positionAbsolute:
+        x: 746.5218656119882
+        y: 1031.6373242626355
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 不支持图片解析
+        desc: ''
+        selected: false
+        title: 直接回复-1
+        type: answer
+        variables: []
+      height: 102
+      id: '1753260981687'
+      position:
+        x: 421.5823358251946
+        y: 216.40469056817136
+      positionAbsolute:
+        x: 421.5823358251946
+        y: 216.40469056817136
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: 文档提取器-4
+        type: document-extractor
+        variable_selector:
+        - sys
+        - files
+      height: 92
+      id: '1753261753271'
+      position:
+        x: 428.1775463158525
+        y: 1134.6386002049271
+      positionAbsolute:
+        x: 428.1775463158525
+        y: 1134.6386002049271
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 7f0f611f-e32e-4cd6-9c49-cdb89976f5d9
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-2
+        type: if-else
+      height: 126
+      id: '1753261791768'
+      position:
+        x: 1055.7601845728032
+        y: 1290.146765250741
+      positionAbsolute:
+        x: 1055.7601845728032
+        y: 1290.146765250741
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: d482a811-675a-40ff-8243-02cc7abedf27
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: c0a72102-e681-485d-af1a-736830755e14
+          role: user
+          text: '根据： {{#1753261753271.text#}}
+
+            理解用户的需求：{{#sys.query#}}
+
+            请注意隐私信息，过滤违规内容，
+
+            如果用户需求不明确，可以引导用户'
+        selected: false
+        title: LLM-19
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753261818281'
+      position:
+        x: 1403.4308650880741
+        y: 1202.6060510915147
+      positionAbsolute:
+        x: 1403.4308650880741
+        y: 1202.6060510915147
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 4ef49060-91b0-4597-bc3f-47beb3e4fde8
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 21fc3cfb-070a-4fab-95d1-4cdcc0a52842
+          role: user
+          text: '根据： {{#1753261753271.text#}}
+
+            理解用户的需求：{{#sys.query#}}
+
+            请注意隐私信息，过滤违规内容，
+
+            如果用户需求不明确，可以引导用户'
+        selected: false
+        title: LLM-20
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753261941616'
+      position:
+        x: 1403.4308650880741
+        y: 1333.5496391301015
+      positionAbsolute:
+        x: 1403.4308650880741
+        y: 1333.5496391301015
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 359a82dd-b91f-4836-9cdc-f41dfb6d5f55
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-3
+        type: if-else
+      height: 126
+      id: '1753262133418'
+      position:
+        x: 782.9468756846401
+        y: 1686.9767847314863
+      positionAbsolute:
+        x: 782.9468756846401
+        y: 1686.9767847314863
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: d482a811-675a-40ff-8243-02cc7abedf27
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: c0a72102-e681-485d-af1a-736830755e14
+          role: user
+          text: '理解用户的需求：{{#sys.query#}}
+
+            请注意隐私信息，过滤违规内容，
+
+            如果用户需求不明确，可以引导用户'
+        selected: false
+        title: LLM-23
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17532621644360'
+      position:
+        x: 1106.546875818871
+        y: 1667.7116948390205
+      positionAbsolute:
+        x: 1106.546875818871
+        y: 1667.7116948390205
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 4ef49060-91b0-4597-bc3f-47beb3e4fde8
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 21fc3cfb-070a-4fab-95d1-4cdcc0a52842
+          role: user
+          text: '理解用户的需求：{{#sys.query#}}
+
+            请注意隐私信息，过滤违规内容，
+
+            如果用户需求不明确，可以引导用户'
+        selected: false
+        title: LLM-24
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17532621679110'
+      position:
+        x: 1095.3509755716057
+        y: 1833.8712947991778
+      positionAbsolute:
+        x: 1095.3509755716057
+        y: 1833.8712947991778
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 28b61420-6fe9-48ac-bcde-ebdb57ae6572
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - online_search
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支 23
+        type: if-else
+      height: 126
+      id: '1753262880331'
+      position:
+        x: 403.59531430319805
+        y: 1535.746902470326
+      positionAbsolute:
+        x: 403.59531430319805
+        y: 1535.746902470326
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 谷歌搜索-3-1
+        tool_configurations: {}
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: cn
+          hl:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 54
+      id: '17532630193260'
+      position:
+        x: 760.1501038467554
+        y: 1484.2341117950555
+      positionAbsolute:
+        x: 760.1501038467554
+        y: 1484.2341117950555
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(text: str, input_data: list) -> dict:\n    if not input_data:\n\
+          \        return {\n            \"status\": \"fail\",\n            \"result\"\
+          : text\n        }\n    \n    results = input_data[0]['organic_results']\n\
+          \    cleaned_data = []\n\n    for index, result in enumerate(results[:5],\
+          \ 1):  # 只处理前5个结果\n        link = result.get('link', '').strip()\n     \
+          \   title = result.get('title', '').strip()\n        snippet = result.get('snippet',\
+          \ '').strip()\n        \n        if not (link and title and snippet):\n\
+          \            continue\n        \n        cleaned_text = f\"结果 {index}:\\\
+          n\"\n        cleaned_text += f\"链接: {link}\\n\"\n        cleaned_text +=\
+          \ f\"标题: {title}\\n\"\n        cleaned_text += f\"内容: {snippet}\\n\"\n \
+          \       cleaned_data.append(cleaned_text)\n\n    output_string = \"\\n\"\
+          .join(cleaned_data)\n\n    return {\n        \"status\": \"success\",\n\
+          \        \"result\": output_string\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行-4-1
+        type: code
+        variables:
+        - value_selector:
+          - '17532630193260'
+          - json
+          variable: input_data
+        - value_selector:
+          - '17532630193260'
+          - text
+          variable: text
+      height: 54
+      id: '17532630549210'
+      position:
+        x: 1055.7601845728032
+        y: 1493.859448677782
+      positionAbsolute:
+        x: 1055.7601845728032
+        y: 1493.859448677782
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bd8a0894-463f-4899-a148-d4316a484446
+            value: success
+            varType: string
+            variable_selector:
+            - '17532630549210'
+            - status
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-4
+        type: if-else
+      height: 126
+      id: '17532630953880'
+      position:
+        x: 1403.4308650880741
+        y: 1493.859448677782
+      positionAbsolute:
+        x: 1403.4308650880741
+        y: 1493.859448677782
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: d482a811-675a-40ff-8243-02cc7abedf27
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: c0a72102-e681-485d-af1a-736830755e14
+          role: user
+          text: "请你根据这个信息 {{#17532630549210.result#}} 来进行整理：\n\n1. 在每个分析结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n\
+            \   <a href=\"原始链接\" target=\"_blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ②\
+            \ ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\n3. 基于所有搜索结果，提供一个全面的汇总分析，包括：\n\
+            \   - 主要信息点\n   - 可能存在的不同观点或数据\n   - 对用户查询的直接回答（如果适用）\n\n4. 如果信息不足或不确定，请指出并建议可能需要进一步查询的方向。\n\
+            \n5. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。"
+        selected: false
+        title: LLM-21
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17532631967630'
+      position:
+        x: 2082.1812642062823
+        y: 1296.3946731429085
+      positionAbsolute:
+        x: 2082.1812642062823
+        y: 1296.3946731429085
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 4ef49060-91b0-4597-bc3f-47beb3e4fde8
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 21fc3cfb-070a-4fab-95d1-4cdcc0a52842
+          role: user
+          text: "请你根据这个信息 {{#17532630549210.result#}} 来进行整理：\n\n1. 在每个分析结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n\
+            \   <a href=\"原始链接\" target=\"_blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ②\
+            \ ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\n3. 基于所有搜索结果，提供一个全面的汇总分析，包括：\n\
+            \   - 主要信息点\n   - 可能存在的不同观点或数据\n   - 对用户查询的直接回答（如果适用）\n\n4. 如果信息不足或不确定，请指出并建议可能需要进一步查询的方向。\n\
+            \n5. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。"
+        selected: false
+        title: LLM-22
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17532632034150'
+      position:
+        x: 2082.1812642062823
+        y: 1493.859448677782
+      positionAbsolute:
+        x: 2082.1812642062823
+        y: 1493.859448677782
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 359a82dd-b91f-4836-9cdc-f41dfb6d5f55
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-5
+        type: if-else
+      height: 126
+      id: '17532633396990'
+      position:
+        x: 1733.9360297806309
+        y: 1387.7712047388973
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: 1387.7712047388973
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: f72b8fcc-911d-4c77-b4a1-90e43c67062c
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - online_search
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-6
+        type: if-else
+      height: 126
+      id: '1753265538737'
+      position:
+        x: 421.5823358251946
+        y: 494.3705718212117
+      positionAbsolute:
+        x: 421.5823358251946
+        y: 494.3705718212117
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 谷歌搜索-3-1
+        tool_configurations: {}
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: cn
+          hl:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 54
+      id: '17532656251080'
+      position:
+        x: 746.5218656119882
+        y: 540.8540141972865
+      positionAbsolute:
+        x: 746.5218656119882
+        y: 540.8540141972865
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(text: str, input_data: list) -> dict:\n    if not input_data:\n\
+          \        return {\n            \"status\": \"fail\",\n            \"result\"\
+          : text\n        }\n    \n    results = input_data[0]['organic_results']\n\
+          \    cleaned_data = []\n\n    for index, result in enumerate(results[:5],\
+          \ 1):  # 只处理前5个结果\n        link = result.get('link', '').strip()\n     \
+          \   title = result.get('title', '').strip()\n        snippet = result.get('snippet',\
+          \ '').strip()\n        \n        if not (link and title and snippet):\n\
+          \            continue\n        \n        cleaned_text = f\"结果 {index}:\\\
+          n\"\n        cleaned_text += f\"链接: {link}\\n\"\n        cleaned_text +=\
+          \ f\"标题: {title}\\n\"\n        cleaned_text += f\"内容: {snippet}\\n\"\n \
+          \       cleaned_data.append(cleaned_text)\n\n    output_string = \"\\n\"\
+          .join(cleaned_data)\n\n    return {\n        \"status\": \"success\",\n\
+          \        \"result\": output_string\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行-3-2
+        type: code
+        variables:
+        - value_selector:
+          - '17532656251080'
+          - json
+          variable: input_data
+        - value_selector:
+          - '17532656251080'
+          - text
+          variable: text
+      height: 54
+      id: '17532656589150'
+      position:
+        x: 1055.7601845728032
+        y: 574.24350182962
+      positionAbsolute:
+        x: 1055.7601845728032
+        y: 574.24350182962
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bd8a0894-463f-4899-a148-d4316a484446
+            value: success
+            varType: string
+            variable_selector:
+            - '17532656589150'
+            - status
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-6
+        type: if-else
+      height: 126
+      id: '17532657072510'
+      position:
+        x: 1391.3245352777546
+        y: 637.6835283310536
+      positionAbsolute:
+        x: 1391.3245352777546
+        y: 637.6835283310536
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 359a82dd-b91f-4836-9cdc-f41dfb6d5f55
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-3-7
+        type: if-else
+      height: 126
+      id: '17532657593550'
+      position:
+        x: 1733.9360297806309
+        y: 590.9382456457868
+      positionAbsolute:
+        x: 1733.9360297806309
+        y: 590.9382456457868
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            enable_search: false
+          mode: chat
+          name: qwen-max-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 9e3586f9-cef2-4ca5-a10a-f5cc6a114d51
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: d0fa474f-4e2a-40b4-86c3-5195110a3332
+          role: user
+          text: '根据：{{#17532656589150.result#}}
+
+            理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-25
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 96
+      id: '17532657888440'
+      position:
+        x: 2090.8343011751417
+        y: 567.5656043031531
+      positionAbsolute:
+        x: 2090.8343011751417
+        y: 567.5656043031531
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            enable_search: false
+            enable_thinking: false
+          mode: chat
+          name: qwen-turbo-latest
+          provider: langgenius/tongyi/tongyi
+        prompt_template:
+        - id: 8909edaa-1f27-4a1d-864f-3fb3a6b91807
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 9d4988f1-329e-46cb-9530-c79f4729d896
+          role: user
+          text: '根据：{{#17532656589150.result#}}
+
+            理解用户需求：{{#sys.query#}}
+
+            1，如果用户输入无法解析时，提供修正建议
+
+            2，禁止敏感词（政治、暴力、隐私）
+
+            3，丰富回复结果，可以适当引导用户下一步'
+        selected: false
+        title: LLM-26
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 96
+      id: '17532657971910'
+      position:
+        x: 2090.8343011751417
+        y: 739.5214656096707
+      positionAbsolute:
+        x: 2090.8343011751417
+        y: 739.5214656096707
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 28b61420-6fe9-48ac-bcde-ebdb57ae6572
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - online_search
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支 23 (1)
+        type: if-else
+      height: 126
+      id: '17532660339500'
+      position:
+        x: 737.8532258844762
+        y: 1178.123028702785
+      positionAbsolute:
+        x: 737.8532258844762
+        y: 1178.123028702785
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: used for searching
+            ja_JP: used for searching
+            pt_BR: used for searching
+            zh_Hans: 用于搜索网页内容
+          label:
+            en_US: Query string
+            ja_JP: Query string
+            pt_BR: Query string
+            zh_Hans: 查询语句
+          llm_description: key words for searching
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            ja_JP: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            pt_BR: Parameter defines the language to use for the Google search. It's
+              a two-letter language code. (e.g., en for English, es for Spanish, or
+              fr for French). Head to https://serpapi.com/google-languages for a full
+              list of supported Google languages.
+            zh_Hans: 此参数定义用于 Google 搜索的语言。它是一个两字母的语言代码。 (例如，en 代表英语，es 代表西班牙语，fr 代表法语)。请前往
+              https://serpapi.com/google-languages 查看完整的支持 Google 语言列表。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: Language
+          max: null
+          min: null
+          name: hl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            ja_JP: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            pt_BR: Parameter defines the country to use for the Google search. It's
+              a two-letter country code. (e.g., us for the United States, uk for United
+              Kingdom, or fr for France). Head to the https://serpapi.com/google-countries
+              for a full list of supported Google countries.
+            zh_Hans: 此参数定义用于 Google 搜索的国家。它是一个两字母的国家代码。 (例如，us 代表美国，uk 代表英国，fr 代表法国)。请前往
+              https://serpapi.com/google-countries 查看完整的支持 Google 国家列表。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Country
+          max: null
+          min: null
+          name: gl
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            ja_JP: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            pt_BR: Parameter defines from where you want the search to originate.
+              If several locations match the location requested, we'll pick the most
+              popular one. Head to the /locations.json API if you need more precise
+              control. The location and uule parameters can't be used together. It
+              is recommended to specify location at the city level in order to simulate
+              a real user’s search. If location is omitted, the search may take on
+              the location of the proxy.
+            zh_Hans: 此参数定义搜索的位置。如果有多个位置与请求的位置匹配，我们将选择最受欢迎的一个。如果需要更精确的控制，请前往 /locations.json
+              API。location 和 uule 参数不能同时使用。建议在城市级别指定位置，以模拟真实用户的搜索。如果省略位置，则搜索可能会采用代理的位置。
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 位置
+          llm_description: Location
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          gl: ''
+          hl: ''
+          location: ''
+          query: ''
+        provider_id: langgenius/google/google
+        provider_name: langgenius/google/google
+        provider_type: builtin
+        selected: false
+        title: 谷歌搜索-3-1 (1)
+        tool_configurations: {}
+        tool_description: 一个用于执行 Google SERP 搜索并提取片段和网页的工具。输入应该是一个搜索查询。
+        tool_label: 谷歌搜索
+        tool_name: google_search
+        tool_node_version: '2'
+        tool_parameters:
+          gl:
+            type: mixed
+            value: cn
+          hl:
+            type: mixed
+            value: zh-cn
+          query:
+            type: mixed
+            value: '{{#1753261753271.text#}}'
+        type: tool
+      height: 54
+      id: '17532660963790'
+      position:
+        x: 1055.7601845728032
+        y: 1117.7794739117544
+      positionAbsolute:
+        x: 1055.7601845728032
+        y: 1117.7794739117544
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(text: str, input_data: list) -> dict:\n    if not input_data:\n\
+          \        return {\n            \"status\": \"fail\",\n            \"result\"\
+          : text\n        }\n    \n    results = input_data[0]['organic_results']\n\
+          \    cleaned_data = []\n\n    for index, result in enumerate(results[:5],\
+          \ 1):  # 只处理前5个结果\n        link = result.get('link', '').strip()\n     \
+          \   title = result.get('title', '').strip()\n        snippet = result.get('snippet',\
+          \ '').strip()\n        \n        if not (link and title and snippet):\n\
+          \            continue\n        \n        cleaned_text = f\"结果 {index}:\\\
+          n\"\n        cleaned_text += f\"链接: {link}\\n\"\n        cleaned_text +=\
+          \ f\"标题: {title}\\n\"\n        cleaned_text += f\"内容: {snippet}\\n\"\n \
+          \       cleaned_data.append(cleaned_text)\n\n    output_string = \"\\n\"\
+          .join(cleaned_data)\n\n    return {\n        \"status\": \"success\",\n\
+          \        \"result\": output_string\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          status:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行-4-1 (1)
+        type: code
+        variables:
+        - value_selector:
+          - '17532660963790'
+          - json
+          variable: input_data
+        - value_selector:
+          - '17532660963790'
+          - text
+          variable: text
+      height: 54
+      id: '17532661188310'
+      position:
+        x: 1403.4308650880741
+        y: 1022.112862657681
+      positionAbsolute:
+        x: 1403.4308650880741
+        y: 1022.112862657681
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: bd8a0894-463f-4899-a148-d4316a484446
+            value: success
+            varType: string
+            variable_selector:
+            - '17532661188310'
+            - status
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-4 (1)
+        type: if-else
+      height: 126
+      id: '17532661846450'
+      position:
+        x: 1716.596248714612
+        y: 985.3180121753448
+      positionAbsolute:
+        x: 1716.596248714612
+        y: 985.3180121753448
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 359a82dd-b91f-4836-9cdc-f41dfb6d5f55
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - '1752734565386'
+            - deep_think
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支-4-5 (1)
+        type: if-else
+      height: 126
+      id: '17532662020450'
+      position:
+        x: 2030.088374824114
+        y: 918.6691559119361
+      positionAbsolute:
+        x: 2030.088374824114
+        y: 918.6691559119361
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: d482a811-675a-40ff-8243-02cc7abedf27
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: c0a72102-e681-485d-af1a-736830755e14
+          role: user
+          text: "请你根据这个信息 {{#17532661188310.result#}} 来进行整理：\n\n1. 在每个分析结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n\
+            \   <a href=\"原始链接\" target=\"_blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ②\
+            \ ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\n3. 基于所有搜索结果，提供一个全面的汇总分析，包括：\n\
+            \   - 主要信息点\n   - 可能存在的不同观点或数据\n   - 对用户查询的直接回答（如果适用）\n\n4. 如果信息不足或不确定，请指出并建议可能需要进一步查询的方向。\n\
+            \n5. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。"
+        selected: false
+        title: LLM-21 (1)
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17532662112570'
+      position:
+        x: 2358.298441126551
+        y: 880.8206368055104
+      positionAbsolute:
+        x: 2358.298441126551
+        y: 880.8206368055104
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 4ef49060-91b0-4597-bc3f-47beb3e4fde8
+          role: system
+          text: "你是一个百科全书式问答助手，用准确、丰富的结果回答用户的客观知识问题，\n拒绝回答涉及以下内容的问题：  \n- 政治敏感话题"
+        - id: 21fc3cfb-070a-4fab-95d1-4cdcc0a52842
+          role: user
+          text: "请你根据这个信息 {{#17532661188310.result#}}来进行整理：\n\n1. 在每个分析结尾使用带圈数字标注来源，并将其设置为可点击的链接。使用以下格式：\n\
+            \   <a href=\"原始链接\" target=\"_blank\">①</a>分析内容\n\n   对于数字2到5，分别使用 ②\
+            \ ③ ④ ⑤\n\n2. 深入理解用户的查询意图：{{#sys.query#}}\n\n3. 基于所有搜索结果，提供一个全面的汇总分析，包括：\n\
+            \   - 主要信息点\n   - 可能存在的不同观点或数据\n   - 对用户查询的直接回答（如果适用）\n\n4. 如果信息不足或不确定，请指出并建议可能需要进一步查询的方向。\n\
+            \n5. 使用清晰的段落结构和适当的标题来组织信息，确保易于阅读和理解。"
+        selected: false
+        title: LLM-22 (1)
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17532662160040'
+      position:
+        x: 2349.4676770107903
+        y: 1078.041035390831
+      positionAbsolute:
+        x: 2349.4676770107903
+        y: 1078.041035390831
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 591.6368688501946
+      y: 395.14749983025786
+      zoom: 0.5000000000000011
