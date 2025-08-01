@@ -192,7 +192,7 @@ const modelOptions = [
 ];
 const selectedOption = ref(modelOptions[0]);
 
-const emit = defineEmits(["send"]);
+const emit = defineEmits(["send" , "RemovePreview"]);
 
 const searchActive = ref(false);
 const deepthinkActive = ref(false);
@@ -223,9 +223,9 @@ function onFileChange(event) {
   }
 }
 function removePreview() {
-  previewFile.value = null;
-  if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
+  emit("RemovePreview" , previewFile.value);
   previewUrl.value = "";
+  previewFile.value = null;
 }
 
 const props = defineProps({

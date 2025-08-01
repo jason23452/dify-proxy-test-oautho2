@@ -1,5 +1,5 @@
 <template>
-  <ChatBox :messages="ChatMessages" :mode="mode" @send="handleSendMessage" />
+  <ChatBox :messages="ChatMessages" :mode="mode" @send="handleSendMessage" @RemovePreview="removePreview" />
 </template>
 
 <script setup>
@@ -18,6 +18,9 @@ const Conversations_id = inject("Conversations_id");
 
 const ChatMessages = ref([]);
 const mode = ref("history"); // 你要的模式
+
+const previewUrl = ref("");
+const previewFile = ref(null);
 
 watch(Conversations_id, async (newId) => {
   await GetConversationHistoryMessages(newId);
@@ -145,7 +148,13 @@ async function handleSendMessage(
     console.log("訊息已發送:", ChatMessages.value);
   } catch (error) {
     console.error(error);
+  }finally{
+    removePreview();
   }
+}
+
+function removePreview() {
+  if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
 }
 
 
