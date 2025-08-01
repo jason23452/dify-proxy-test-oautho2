@@ -35,6 +35,7 @@ async function GetConversationHistoryMessages(Conversations_id) {
       answer: item.answer,
       id: item.id,
       query: item.query,
+      message_files: item.message_files,
     }));
 
     ChatMessages.value = historyMessage;

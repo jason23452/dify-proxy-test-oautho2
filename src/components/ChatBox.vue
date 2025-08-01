@@ -246,16 +246,30 @@ watch(
   ([messages, mode]) => {
     if (mode === "history") {
       const arr = [];
+
       messages.forEach((msg) => {
+        // 取出 user 檔案（假設 message_files 是 array，且第一個就是你要顯示的）
+        let userFile = msg.message_files?.[0] || null;
+        let userPreviewUrl =
+          userFile &&
+          userFile.mime_type &&
+          userFile.mime_type.startsWith("image/")
+            ? userFile.url
+            : "";
+
         arr.push({
           id: msg.message_id,
           role: "user",
           text: msg.query,
+          file: userFile,
+          previewUrl: userPreviewUrl,
         });
         arr.push({
           id: msg.task_id,
           role: "ai",
           text: unicodeToString(msg.answer),
+          file: null,
+          previewUrl: "",
         });
       });
       mergedMessages.value = arr;
