@@ -27,7 +27,7 @@ const mode = ref("history");
 const previewUrl = ref("");
 const previewFile = ref(null);
 
-const isStreaming = ref(false); 
+const isStreaming = ref(false);
 
 // 監聽 Conversations_id，如果正在streaming就不載入歷史
 watch(Conversations_id, async (newId) => {
@@ -51,8 +51,10 @@ async function GetConversationHistoryMessages(Conversations_id) {
       id: item.id,
       query: item.query,
       message_files: item.message_files,
+      llm_node: item.inputs?.llm_node || "",
+      deep_think: item.inputs?.deep_think === "yes",
+      online_search: item.inputs?.online_search === "yes",
     }));
-
     ChatMessages.value = historyMessage;
 
     // 例如查詢歷史紀錄時設為 read-only
@@ -70,7 +72,7 @@ async function handleSendMessage(
   searchActive,
   deepthinkActive,
   previewFile,
-  loading,
+  loading
 ) {
   if (isStreaming.value) return; // 避免重複送出
   isStreaming.value = true; // 標記streaming開始
@@ -134,10 +136,14 @@ async function handleSendMessage(
       if (answer) result += answer;
 
       // 動態更新 conversation_id 等資訊
-      Conversations_id.value = message.conversation_id || Conversations_id.value;
+      Conversations_id.value =
+        message.conversation_id || Conversations_id.value;
       message_id = message.message_id || message_id;
       task_id = message.task_id || task_id;
 
+      // ModelSelect.value;
+      // searchActive  =message.
+      // deepthinkActive
       if (message.event === "message_end") {
         loading = true;
         break;

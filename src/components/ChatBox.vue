@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen relative flex flex-col py-6 px-8 bg-slate-50">
+  <div class="h-screen relative flex flex-col py-6 px-8 bg-slate-50">
     <!-- Chat Title -->
     <div class="flex items-start mb-4">
       <ModelOption v-model="selectedOption" :options="modelOptions" />
@@ -241,7 +241,34 @@ const props = defineProps({
   },
 });
 
+
+
+
+watch(
+  () => props.messages,
+  (messages) => {
+    if (!messages || messages.length === 0) return;
+
+    // 這裡以「最新一筆」為同步依據，也可以改成 [0] 代表最舊一筆
+    const latest = messages[messages.length - 1];
+
+    // llm_node 同步
+    const found = modelOptions.find(opt => opt.value === latest.llm_node);
+    if (found) selectedOption.value = found;
+
+    // deep_think/online_search 同步
+    deepthinkActive.value = !!latest.deep_think;
+    searchActive.value = !!latest.online_search;
+  },
+  { immediate: true, deep: true }
+);
+
+
+
+
+
 const mergedMessages = ref([]);
+
 
 watch(
   () => [props.messages, props.mode],
