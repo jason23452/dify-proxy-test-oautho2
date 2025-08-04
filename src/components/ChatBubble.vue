@@ -19,6 +19,14 @@
         'transition-all duration-150',
       ]"
     >
+      <!-- 複製按鈕（浮在訊息內容右上角） -->
+      <button
+        class="absolute top-2 right-2 text-xs px-2 py-1 rounded bg-slate-200 hover:bg-slate-300 text-slate-600 transition-all active:scale-95 select-none"
+        @click="copyToClipboard"
+        title="複製內容"
+      >
+        複製
+      </button>
       <div
         class="text-sm font-semibold mb-1"
         :class="isUser ? 'text-blue-600' : 'text-teal-500'"
@@ -28,7 +36,7 @@
       <div class="text-base whitespace-pre-line max-w-[700px]">
         <slot>{{ message }}</slot>
       </div>
-      <!-- 檔案預覽區塊 -->
+      <!-- 檔案預覽區塊 (只顯示icon+文字) -->
       <div
         v-if="file"
         class="flex items-center bg-white rounded-xl shadow border border-gray-100 px-3 py-2 w-max mt-2"
@@ -52,49 +60,54 @@
             <polyline points="14 2 14 8 20 8" />
           </svg>
         </div>
-        <!-- 圖片預覽（file + previewUrl 有值就顯示圖片）-->
-        <template v-if="previewUrl">
-          <a :href="previewUrl" target="_blank" rel="noopener noreferrer">
-            <img
-              :src="previewUrl"
-              :alt="file.filename || file.name"
-              class="max-w-[96px] max-h-[80px] rounded-xl border border-gray-100 shadow mr-2"
-            />
-          </a>
-        </template>
-
-        <!-- 其他檔案 -->
-        <template v-else>
-          <a
-            :href="file.url"
-            :download="file.filename || file.name"
-            class="text-[15px] text-blue-700 hover:underline truncate max-w-[120px]"
-            :title="file.filename || file.name"
-            target="_blank"
-          >
-            {{ file.filename || file.name }}
-          </a>
-          <span v-if="file.size" class="ml-2 text-xs text-gray-400"
-            >({{ humanFileSize(file.size) }})</span
-          >
-        </template>
+        <!-- 只顯示檔案名稱與大小 -->
+        <a
+          :href="file.url"
+          :download="file.filename || file.name"
+          class="text-[15px] text-blue-700 hover:underline truncate max-w-[120px]"
+          :title="file.filename || file.name"
+          target="_blank"
+        >
+          {{ file.filename || file.name }}
+        </a>
+        <span v-if="file.size" class="ml-2 text-xs text-gray-400"
+          >({{ humanFileSize(file.size) }})</span
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+
 const props = defineProps({
+  id : String,
   message: String,
   avatar: String,
   isUser: Boolean,
   file: Object,
   previewUrl: String,
 });
+
 function humanFileSize(size) {
   if (!size) return "";
   const i = Math.floor(Math.log(size) / Math.log(1024));
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   return (size / Math.pow(1024, i)).toFixed(1) + " " + sizes[i];
+}
+
+// 複製功能
+function copyToClipboard() {
+  if (!props.message) return;
+  navigator.clipboard.writeText(props.message)
+    .then(() => {
+      // 可加通知或變色提示
+      // alert("複製成功！");
+    })
+    .catch(() => {
+      // 可加通知失敗提示
+      // alert("複製失敗！");
+    });
 }
 </script>

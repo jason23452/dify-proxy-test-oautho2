@@ -12,6 +12,7 @@
       <ChatBubble
         v-for="msg in mergedMessages"
         :key="msg.id"
+        :id = "msg.id"
         :message="msg.text"
         :isUser="msg.role === 'user'"
         :avatar="msg.role === 'user' ? userAvatar : aiAvatar"
