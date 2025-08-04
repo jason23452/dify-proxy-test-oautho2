@@ -12,12 +12,13 @@
       <ChatBubble
         v-for="msg in mergedMessages"
         :key="msg.id"
-        :id = "msg.id"
+        :id="msg.id"
         :message="msg.text"
         :isUser="msg.role === 'user'"
         :avatar="msg.role === 'user' ? userAvatar : aiAvatar"
         :file="msg.file"
         :previewUrl="msg.previewUrl"
+        :loading="msg.loading"
       />
     </div>
 
@@ -193,7 +194,7 @@ const modelOptions = [
 ];
 const selectedOption = ref(modelOptions[0]);
 
-const emit = defineEmits(["send" , "RemovePreview"]);
+const emit = defineEmits(["send", "RemovePreview"]);
 
 const searchActive = ref(false);
 const deepthinkActive = ref(false);
@@ -224,7 +225,7 @@ function onFileChange(event) {
   }
 }
 function removePreview() {
-  emit("RemovePreview" , previewFile.value);
+  emit("RemovePreview", previewFile.value);
   previewUrl.value = "";
   previewFile.value = null;
 }
@@ -276,17 +277,15 @@ watch(
       mergedMessages.value = arr;
     } else if (mode === "chat") {
       messages.forEach((msg) => {
-        let userMsg = mergedMessages.value.find(
-          (item) => item.id === msg.task_id && item.role === "user"
-        );
-        if (userMsg) {
-          userMsg.id = msg.message_id;
-        }
+        // 找出要覆蓋的 ai bubble
         let aiMsg = mergedMessages.value.find(
-          (item) => item.id === msg.task_id && item.role === "ai"
+          (item) =>
+            item.role === "ai" &&
+            (item.id === msg.task_id || item.id === lastTempId.value)
         );
         if (aiMsg) {
-          aiMsg.text += unicodeToString(msg.answer);
+          aiMsg.text = unicodeToString(msg.answer);
+          aiMsg.id = msg.task_id; // 更新 id 成正確 task_id
         } else {
           mergedMessages.value.push({
             id: msg.task_id,
@@ -320,6 +319,8 @@ const lastTempId = ref(null);
 function sendMessage() {
   if (!input.value.trim() && !previewFile.value) return;
   const tempId = crypto.randomUUID();
+  lastTempId.value = tempId;
+
   emit(
     "send",
     input.value,
@@ -328,6 +329,7 @@ function sendMessage() {
     deepthinkActive.value,
     previewFile.value
   );
+
   mergedMessages.value.push({
     id: tempId,
     role: "user",
@@ -335,7 +337,14 @@ function sendMessage() {
     file: previewFile.value,
     previewUrl: previewUrl.value,
   });
-  lastTempId.value = tempId;
+  mergedMessages.value.push({
+    id: tempId,
+    role: "ai",
+    text: "AI 思考中...",
+    file: null,
+    previewUrl: "",
+  });
+
   input.value = "";
   removePreview();
 }

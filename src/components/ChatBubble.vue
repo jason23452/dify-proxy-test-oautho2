@@ -34,7 +34,7 @@
         {{ isUser ? "你" : "AI" }}
       </div>
       <div class="text-base whitespace-pre-line max-w-[700px]">
-        <slot>{{ message }}</slot>
+        {{ isUser === false && loading ? "還在讀取中....." : message }}
       </div>
       <!-- 檔案預覽區塊 (只顯示icon+文字) -->
       <div
@@ -82,12 +82,13 @@
 import { ref } from "vue";
 
 const props = defineProps({
-  id : String,
+  id: String,
   message: String,
   avatar: String,
   isUser: Boolean,
   file: Object,
   previewUrl: String,
+  loading: Boolean,
 });
 
 function humanFileSize(size) {
@@ -100,7 +101,8 @@ function humanFileSize(size) {
 // 複製功能
 function copyToClipboard() {
   if (!props.message) return;
-  navigator.clipboard.writeText(props.message)
+  navigator.clipboard
+    .writeText(props.message)
     .then(() => {
       // 可加通知或變色提示
       // alert("複製成功！");
