@@ -137,6 +137,7 @@ import {
   Settings,
   ChevronLeft,
   Edit,
+  Languages,
 } from "lucide-vue-next";
 import { useRouter, useRoute } from "vue-router";
 import { computed, inject } from "vue";
@@ -152,6 +153,7 @@ const menu = [
   { key: "home", label: "首頁", icon: Home, route: "/" },
   { key: "chat", label: "對話", icon: MessageCircle, route: "/chat" },
   { key: "setting", label: "設定", icon: Settings, route: "/setting" },
+  { key: "translator", label: "翻譯", icon: Languages, route: "/translator" },
 ];
 
 // 根據當前 route 判斷 active

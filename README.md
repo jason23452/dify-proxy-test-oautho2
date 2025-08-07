@@ -34,14 +34,6 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 
 按鈕文字：text-base font-medium
 
-3. 版面大小（Tailwind CSS）
-最大寬度：max-w-3xl 或 max-w-4xl（適合聊天介面）
-
-整體外框：mx-auto px-4 py-8
-
-輸入區塊：w-full mt-4 p-4 rounded-2xl bg-white shadow
-
-AI 回應區：w-full mt-2 p-4 rounded-2xl bg-slate-50 shadow-sm
 
 4. 現代簡潔風格重點
 大量留白，圓角（rounded-2xl）
