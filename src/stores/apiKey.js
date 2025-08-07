@@ -1,6 +1,5 @@
 // stores/apiKey.js
 import { defineStore } from 'pinia';
-
 export const useApiKeyStore = defineStore('apiKey', {
   state: () => ({
     keyMap: {
@@ -11,14 +10,19 @@ export const useApiKeyStore = defineStore('apiKey', {
   }),
   actions: {
     changeKey(routerName) {
+      // console.log("changeKey", this.currentKey);
       this.currentKey = this.keyMap[routerName] || "";
     },
     getCurrentKey() {
+      // console.log(this.currentKey);
       return this.currentKey;
     },
-    getChatKet(){
-
+    getChatKey(){
         return this.keyMap.chat;
+    },
+    getTranslatorKey(){
+    return this.keyMap.translator;
     }
+
   },
 });

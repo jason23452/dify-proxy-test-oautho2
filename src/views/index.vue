@@ -43,7 +43,7 @@
         <ChevronLeft class="w-6 h-6 rotate-180" />
       </button>
       <!-- Router 內容 -->
-      <router-view />
+      <router-view @GetHistory="GetHistory" />
       <!-- 範例首頁歡迎區塊 -->
       <div v-if="user.isLogged && route.path === '/'">
         <p>歡迎, {{ user.account.name }}</p>

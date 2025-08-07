@@ -30,6 +30,9 @@ const previewFile = ref(null);
 const isStreaming = ref(false);
 const newChat_id = ref("");
 
+
+const emit = defineEmits(['GetHistory']) // 定義一個事件名稱叫 sendPayload
+
 // 監聽 Conversations_id，如果正在streaming就不載入歷史
 watch(Conversations_id, async (newId) => {
   if (isStreaming.value) return;
@@ -202,7 +205,11 @@ function removePreview() {
   if (previewUrl.value) URL.revokeObjectURL(previewUrl.value);
 }
 
+
+
+
 onMounted(() => {
+  emit("GetHistory");
   if (Conversations_id.value) {
     GetConversationHistoryMessages(Conversations_id.value);
   }

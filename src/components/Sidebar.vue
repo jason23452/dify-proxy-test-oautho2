@@ -166,12 +166,12 @@ const menu = [
 watch(
       () => route.path,
       (newPath) => {
-        console.log('目前的 router.path:', newPath)
-        if(newPath ==="/"){
-          apiKeyStore.changeKey('chat');
+        // console.log('目前的 router.path:', newPath)
+        if(newPath ==="/chat"){
+          apiKeyStore.changeKey("chat");
         }
         else if(newPath ==="/translator"){
-          apiKeyStore.changeKey('translator');
+          apiKeyStore.changeKey("translator");
         }
       },
       { immediate: true }
