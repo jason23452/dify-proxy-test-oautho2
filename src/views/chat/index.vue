@@ -28,17 +28,17 @@ const previewUrl = ref("");
 const previewFile = ref(null);
 
 const isStreaming = ref(false);
+const newChat_id = ref("");
 
 // 監聽 Conversations_id，如果正在streaming就不載入歷史
 watch(Conversations_id, async (newId) => {
   if (isStreaming.value) return;
+
   await GetConversationHistoryMessages(newId);
 });
 
 async function GetConversationHistoryMessages(Conversations_id) {
-  // streaming中就不處理
   if (isStreaming.value) return;
-
   const data = {
     conversation_id: Conversations_id,
     user: user.account.name,
@@ -46,25 +46,52 @@ async function GetConversationHistoryMessages(Conversations_id) {
   try {
     const response = await Get_conversation_history_messages(data);
 
-    const historyMessage = response.data.data.map((item) => ({
-      answer: item.answer,
-      id: item.id,
-      query: item.query,
-      message_files: item.message_files,
-      llm_node: item.inputs?.llm_node || "",
-      deep_think: item.inputs?.deep_think === "yes",
-      online_search: item.inputs?.online_search === "yes",
-    }));
-    ChatMessages.value = historyMessage;
+    // 取得歷史資料
+    let messages = response.data?.data || [];
 
-    // 例如查詢歷史紀錄時設為 read-only
+    // 如果資料為空，給預設訊息
+    if (!Array.isArray(messages) || messages.length === 0) {
+      ChatMessages.value = [
+        {
+          answer: "",
+          id: "default",
+          message_files: [],
+          llm_node: "",
+          deep_think: false,
+          online_search: false,
+        },
+      ];
+    } else {
+      // 有資料才轉換
+      ChatMessages.value = messages.map((item) => ({
+        answer: item.answer,
+        id: item.id,
+        query: item.query,
+        message_files: item.message_files,
+        llm_node: item.inputs?.llm_node || "",
+        deep_think: item.inputs?.deep_think === "yes",
+        online_search: item.inputs?.online_search === "yes",
+      }));
+    }
+
     mode.value = "history";
   } catch (error) {
     console.error(error);
-    ChatMessages.value = [];
+    ChatMessages.value = [
+      {
+        answer: "載入失敗，請稍後重試。",
+        id: "error",
+        query: "",
+        message_files: [],
+        llm_node: "",
+        deep_think: false,
+        online_search: false,
+      },
+    ];
     mode.value = "error";
   }
 }
+
 
 async function handleSendMessage(
   msg,
@@ -152,13 +179,15 @@ async function handleSendMessage(
     const responseChat = [
       {
         answer: result,
-        Conversations_id,
+        Conversations_id: Conversations_id.value, // 注意這個 key 命名建議小寫 conversations_id
         message_id,
         task_id,
         loading: loading,
+        llm_node: ModelSelect.value, // 修正
+        deep_think: deepthinkActive, // 修正
+        online_search: searchActive, // 修正
       },
     ];
-
     ChatMessages.value = responseChat;
     mode.value = "chat";
   } catch (error) {

@@ -243,25 +243,21 @@ const props = defineProps({
 
 
 
-
+// 監聽 messages，只取最後一則訊息做控制（預設 messages 是陣列）
 watch(
   () => props.messages,
   (messages) => {
     if (!messages || messages.length === 0) return;
-
-    // 這裡以「最新一筆」為同步依據，也可以改成 [0] 代表最舊一筆
     const latest = messages[messages.length - 1];
-
-    // llm_node 同步
-    const found = modelOptions.find(opt => opt.value === latest.llm_node);
-    if (found) selectedOption.value = found;
-
-    // deep_think/online_search 同步
-    deepthinkActive.value = !!latest.deep_think;
-    searchActive.value = !!latest.online_search;
+    // 找到 value 對應的 object，沒有就選第一個
+    selectedOption.value = modelOptions.find(opt => opt.value === latest.llm_node) || modelOptions[0];
+    searchActive.value = latest.online_search === true || latest.online_search === "yes";
+    deepthinkActive.value = latest.deep_think === true || latest.deep_think === "yes";
   },
   { immediate: true, deep: true }
 );
+
+
 
 
 
@@ -273,10 +269,17 @@ const mergedMessages = ref([]);
 watch(
   () => [props.messages, props.mode],
   ([messages, mode]) => {
+    if (!Array.isArray(messages)) return;
+
+    // 過濾掉 id === 'default' 或 'error' 的訊息
+    const validMessages = messages.filter(
+      (msg) => msg.id !== "default" && msg.id !== "error"
+    );
+
     if (mode === "history") {
       const arr = [];
 
-      messages.forEach((msg) => {
+      validMessages.forEach((msg) => {
         // 取出 user 檔案（假設 message_files 是 array，且第一個就是你要顯示的）
         let userFile = msg.message_files?.[0] || null;
         let userPreviewUrl =
@@ -286,6 +289,7 @@ watch(
             ? userFile.url
             : "";
 
+        // 使用 message_id 當 id（user 氣泡）
         arr.push({
           id: msg.message_id,
           role: "user",
@@ -293,6 +297,8 @@ watch(
           file: userFile,
           previewUrl: userPreviewUrl,
         });
+
+        // 使用 task_id 當 id（ai 氣泡）
         arr.push({
           id: msg.task_id,
           role: "ai",
@@ -301,9 +307,10 @@ watch(
           previewUrl: "",
         });
       });
+
       mergedMessages.value = arr;
     } else if (mode === "chat") {
-      messages.forEach((msg) => {
+      validMessages.forEach((msg) => {
         // 找出要覆蓋的 ai bubble
         let aiMsg = mergedMessages.value.find(
           (item) =>
@@ -318,6 +325,8 @@ watch(
             id: msg.task_id,
             role: "ai",
             text: unicodeToString(msg.answer),
+            file: null,
+            previewUrl: "",
           });
         }
       });
@@ -327,6 +336,7 @@ watch(
   },
   { immediate: true, deep: true }
 );
+
 
 function unicodeToString(str) {
   return typeof str === "string"
