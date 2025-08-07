@@ -14,3 +14,6 @@ export const DELETE_CONVERSATION = "/conversations";
 
 
 export const FILE_UPLOAD = "/files/upload"
+
+
+export const WORKFLOWS_TRANSLATOR  ="/workflows/run"

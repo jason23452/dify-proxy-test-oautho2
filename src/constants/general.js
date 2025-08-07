@@ -6,6 +6,7 @@ import {
   GET_CONVERSATION_HISTORY_MESSAGES,
   DELETE_CONVERSATION,
   FILE_UPLOAD,
+  WORKFLOWS_TRANSLATOR,
 } from "./server.js";
 
 export const Get_Mata = async (data) => {
@@ -32,4 +33,8 @@ export const Delete_Conversation  = async (data) => {
 
 export const File_Upload = async (data) => {
   return await ApiService.post(FILE_UPLOAD, data);
+};
+
+export  const Workflows_Translator = async (data) => {
+  return await ApiService.post(WORKFLOWS_TRANSLATOR, data);
 };

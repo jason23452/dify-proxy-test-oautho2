@@ -138,6 +138,9 @@ const sourceLang = ref("auto");
 const targetLang = ref("en");
 const loading = ref(false);
 const errorMsg = ref("");
+const emit = defineEmits(["translate"]);
+
+
 
 const availableModels = [
   { label: "Google 翻譯", value: "google" },
@@ -175,36 +178,45 @@ function getModelLabel(val) {
   return found ? found.label : val;
 }
 
-async function translateAPI(text, source, target, model) {
-  await new Promise((r) => setTimeout(r, 500));
-  if (text.length < 2) throw new Error("內容太短");
-  return `[${getModelLabel(model)}][${target}] ${text
-    .split("")
-    .reverse()
-    .join("")}`;
+// async function translateAPI(text, source, target, model) {
+//   await new Promise((r) => setTimeout(r, 500));
+//   if (text.length < 2) throw new Error("內容太短");
+//   return `[${getModelLabel(model)}][${target}] ${text
+//     .split("")
+//     .reverse()
+//     .join("")}`;
+// }
+
+function  handleTranslate(){
+  emit("translate", {
+    query: inputText.value,
+    from_language: sourceLang.value,
+    to_language: targetLang.value,
+    translate_node: selectedModels.value.join(","),
+  });
 }
 
-const handleTranslate = async () => {
-  errorMsg.value = "";
-  translatedTexts.value = {};
-  loading.value = true;
-  try {
-    const results = await Promise.all(
-      selectedModels.value.map(async (model) => {
-        const res = await translateAPI(
-          inputText.value,
-          sourceLang.value,
-          targetLang.value,
-          model
-        );
-        return [model, res];
-      })
-    );
-    translatedTexts.value = Object.fromEntries(results);
-  } catch (err) {
-    errorMsg.value = err.message || "翻譯失敗";
-  } finally {
-    loading.value = false;
-  }
-};
+
+// const handleTranslate = async () => {
+//   errorMsg.value = "";
+//   translatedTexts.value = {};
+//   loading.value = true;
+//   try {
+//     // 只打一個 API，把所有已選模型逗號串起來
+//     const res = await translateAPI(
+//       inputText.value,
+//       sourceLang.value,
+//       targetLang.value,
+//       selectedModels.value.join(",")  // e.g., "deepseek,qwen,doubao"
+//     );
+    
+
+//   } catch (err) {
+//     errorMsg.value = err.message || "翻譯失敗";
+//   } finally {
+//     loading.value = false;
+//   }
+// };
+
+
 </script>

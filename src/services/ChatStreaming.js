@@ -1,6 +1,9 @@
 import { useUserStore } from "@/stores/user";
-const DIFY_API_KEY = import.meta.env.VITE_DIFY_API_KEY;
+import { useApiKeyStore } from "@/stores/apiKey";
+ 
+const apiKeyStore = useApiKeyStore();
 
+const DIFY_API_KEY = apiKeyStore.getChatKet();
 // async generator：每收到 chunk 就 yield 一次
 export async function* chatStreaming(data) {
   // 1. 檢查 SSO token

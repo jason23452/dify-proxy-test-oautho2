@@ -192,7 +192,7 @@ async function GetHistory() {
 onMounted(() => {
   if (user.isLogged) {
     loadData();
-    GetHistory();
+    // GetHistory();
   }
 });
 watch(

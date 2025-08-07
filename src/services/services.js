@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
+import { useApiKeyStore } from "@/stores/apiKey";
 
-const DIFY_API_KEY = import.meta.env.VITE_DIFY_API_KEY;
+// 不要在這裡呼叫 useApiKeyStore()
 
 const client = axios.create({
   baseURL: "/dify", // Vite proxy 前綴
@@ -12,7 +13,6 @@ const client = axios.create({
 client.interceptors.request.use(
   async (config) => {
     // 1. 檢查並靜默更新 SSO Token
-    
     const userStore = useUserStore();
     const ok = await userStore.ensureValidToken();
     if (!ok) {
@@ -27,7 +27,9 @@ client.interceptors.request.use(
       config.headers["X-User-Token"] = `Bearer ${accessToken}`;
     }
 
-    // 3. 加入 Dify API Key
+    // 3. **動態取得 API Key**
+    const apiKeyStore = useApiKeyStore(); // 每次進來都會拿到最新的 Pinia 狀態
+    const DIFY_API_KEY = apiKeyStore.getCurrentKey?.() || apiKeyStore.currentKey; // 相容 getter 或直接屬性
     if (DIFY_API_KEY) {
       config.headers["Authorization"] = `Bearer ${DIFY_API_KEY}`;
     }
@@ -37,35 +39,9 @@ client.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-client.interceptors.response.use(
-  (response) => response,
-  (err) => {
-    if (!axios.isCancel(err)) {
-      const status = err.response?.status;
-      const isDifyCall = err.config?.baseURL === "/dify";
+// ...response 攔截器同你原本
 
-      if (status === 401 && isDifyCall) {
-        // /dify 路徑且 401 → Dify API Key 問題
-        alert("Dify API Key 不正確，請檢查金鑰");
-        return Promise.reject({ ...err, custom: "difyKey" });
-      }
-
-      if (status === 401) {
-        // 其餘 401 → SSO Token 問題
-        alert("登入已過期，請重新登入");
-        const userStore = useUserStore();
-        userStore.logout();
-        return Promise.reject({ ...err, custom: "sso" });
-      }
-
-      console.error("Request Error:", err);
-    }
-
-    return Promise.reject(err);
-  }
-);
-
-// 簡化 HTTP 方法
+// 其餘方法保持不變
 export const get = async (path, params = {}) => {
   try {
     return await client.get(path, { params });

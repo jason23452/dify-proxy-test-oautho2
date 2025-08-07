@@ -140,8 +140,13 @@ import {
   Languages,
 } from "lucide-vue-next";
 import { useRouter, useRoute } from "vue-router";
-import { computed, inject } from "vue";
+import { computed, inject , watch } from "vue";
 import AiHistory from "@/components/AiHistory.vue";
+import { useApiKeyStore } from '@/stores/apiKey'
+
+const apiKeyStore = useApiKeyStore();
+
+
 
 const props = defineProps({
   collapsed: Boolean,
@@ -150,11 +155,29 @@ const router = useRouter();
 const route = useRoute();
 
 const menu = [
-  { key: "home", label: "首頁", icon: Home, route: "/" },
+  { key: "home", label: "首頁", icon: Home, route: "/"   },
   { key: "chat", label: "對話", icon: MessageCircle, route: "/chat" },
   { key: "setting", label: "設定", icon: Settings, route: "/setting" },
   { key: "translator", label: "翻譯", icon: Languages, route: "/translator" },
 ];
+
+
+
+watch(
+      () => route.path,
+      (newPath) => {
+        console.log('目前的 router.path:', newPath)
+        if(newPath ==="/"){
+          apiKeyStore.changeKey('chat');
+        }
+        else if(newPath ==="/translator"){
+          apiKeyStore.changeKey('translator');
+        }
+      },
+      { immediate: true }
+)
+
+
 
 // 根據當前 route 判斷 active
 const isActive = (item) => item.route === route.path;
