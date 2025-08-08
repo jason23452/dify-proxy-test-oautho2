@@ -6,7 +6,7 @@
       >
         <!-- loading 遮罩 -->
         <div
-          v-if="showLoading"
+          v-if="loading"
           class="absolute inset-0 z-10 bg-white/70 flex flex-col items-center justify-center rounded-2xl"
         >
           <svg
@@ -31,6 +31,7 @@
           </svg>
           <span class="text-base text-blue-600 font-semibold">AI 翻譯中…</span>
         </div>
+        <!-- 原文 -->
         <div>
           <label class="block text-base font-medium text-slate-800 mb-2"
             >原文</label
@@ -38,17 +39,18 @@
           <textarea
             v-model="inputText"
             rows="5"
-            :disabled="showLoading"
+            :disabled="loading"
             class="w-full rounded-2xl border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 outline-none bg-slate-50 p-4 text-base text-slate-800 shadow-sm transition"
             placeholder="請輸入需要翻譯的內容…"
           />
         </div>
+        <!-- 語言/模型選擇 -->
         <div class="flex flex-col sm:flex-row gap-4 items-center">
           <div class="flex-1">
             <label class="block text-sm text-slate-400 mb-1">來源語言</label>
             <select
               v-model="sourceLang"
-              :disabled="showLoading"
+              :disabled="loading"
               class="w-full rounded-2xl border border-slate-200 p-2 text-base focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
             >
               <option value="zh">中文</option>
@@ -75,7 +77,7 @@
             <label class="block text-sm text-slate-400 mb-1">目標語言</label>
             <select
               v-model="targetLang"
-              :disabled="showLoading"
+              :disabled="loading"
               class="w-full rounded-2xl border border-slate-200 p-2 text-base focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
             >
               <option value="en">英文</option>
@@ -101,7 +103,7 @@
                 :id="'model-' + m.value"
                 :checked="selectedModels.includes(m.value)"
                 @change="onModelChange(m.value, $event)"
-                :disabled="showLoading"
+                :disabled="loading"
                 class="accent-teal-500 w-5 h-5 rounded"
               />
               <label
@@ -123,10 +125,10 @@
         </div>
         <button
           class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white text-base font-medium rounded-2xl py-3 transition shadow"
-          :disabled="showLoading || !inputText || selectedModels.length === 0"
+          :disabled="loading || !inputText || selectedModels.length === 0"
           @click="handleTranslate"
         >
-          {{ showLoading ? "翻譯中…" : "開始翻譯" }}
+          {{ loading ? "翻譯中…" : "開始翻譯" }}
         </button>
       </div>
     </div>
@@ -161,25 +163,17 @@
 </template>
 
 <script setup>
-import { ref, nextTick, computed } from "vue";
+import { ref, computed } from "vue";
 
-// props 修正
+// 外部傳進來的 props
 const props = defineProps({
   translate: {
     type: Array,
-    required: false,
     default: () => [],
   },
+  loading: Boolean,
+  errorMsg: String,
 });
-
-// ========== loading 控制 ==============
-const hasRequested = ref(false);
-const showLoading = computed(() => {
-  // 預設可編輯，只有按下翻譯才進入 loading 判斷
-  if (!hasRequested.value) return false;
-  return !props.translate.length || props.translate[0].loading !== true;
-});
-// =====================================
 
 const modelAnswers = computed(() => {
   if (
@@ -201,8 +195,6 @@ const filteredModels = computed(() =>
 const inputText = ref("");
 const sourceLang = ref("zh");
 const targetLang = ref("en");
-const errorMsg = ref("");
-const emit = defineEmits(["translate"]);
 
 const availableModels = [
   { label: "豆包", value: "doubao" },
@@ -211,16 +203,13 @@ const availableModels = [
 ];
 const selectedModels = ref([availableModels[0].value]);
 
+const emit = defineEmits(["translate"]);
+
 function onModelChange(val, e) {
   if (!e.target.checked) {
     if (selectedModels.value.length === 1) {
       alert("至少需要選擇一個 AI 模型！");
-      nextTick(() => {
-        e.target.checked = true;
-      });
-      if (!selectedModels.value.includes(val)) {
-        selectedModels.value.push(val);
-      }
+      e.target.checked = true;
       return;
     }
     selectedModels.value = selectedModels.value.filter((v) => v !== val);
@@ -237,7 +226,6 @@ function getModelLabel(val) {
 }
 
 function handleTranslate() {
-  hasRequested.value = true; // 只要有送出過翻譯，才進入 loading 控制
   emit(
     "translate",
     inputText.value,
