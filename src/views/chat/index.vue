@@ -12,7 +12,7 @@ import { inject, onMounted, ref, watch } from "vue";
 import {
   Get_conversation_history_messages,
   File_Upload,
-} from "@/constants/general";
+} from "@/services/general";
 import { chatStreaming } from "@/services/ChatStreaming";
 import { useUserStore } from "@/stores/user";
 import ChatBox from "@/components/ChatBox.vue";

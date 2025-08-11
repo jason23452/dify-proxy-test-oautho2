@@ -7,7 +7,7 @@ import {
   DELETE_CONVERSATION,
   FILE_UPLOAD,
   WORKFLOWS_TRANSLATOR,
-} from "./server.js";
+} from "../constants/server.js";
 
 export const Get_Mata = async (data) => {
   return await ApiService.get(GET_META, data);

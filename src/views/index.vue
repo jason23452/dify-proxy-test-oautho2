@@ -56,11 +56,11 @@
 <script setup>
 import { ref, computed, onMounted, watch, provide } from "vue";
 import { useUserStore } from "../stores/user";
-import { Get_Mata } from "../constants/general";
+import { Get_Mata } from "../services/general";
 import Sidebar from "@/components/Sidebar.vue";
 import { useRoute } from "vue-router";
 import { ChevronLeft } from "lucide-vue-next";
-import { Get_Conversations, Delete_Conversation } from "@/constants/general";
+import { Get_Conversations, Delete_Conversation } from "@/services/general";
 
 const user = useUserStore();
 const data = ref(null);
@@ -188,19 +188,9 @@ async function GetHistory() {
     history.value = [];
   }
 }
-
 onMounted(() => {
-  if (user.isLogged) {
-    loadData();
-    // GetHistory();
-  }
+  loadData();
 });
-watch(
-  () => user.isLogged,
-  (loggedIn) => {
-    if (loggedIn) loadData();
-  }
-);
 </script>
 
 <style scoped>
